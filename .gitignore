@@ -11,6 +11,11 @@
 # production
 /build
 
+# editor
+.vs
+/idea
+/vsconfig
+
 # misc
 .DS_Store
 .env.local

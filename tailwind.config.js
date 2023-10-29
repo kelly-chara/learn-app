@@ -2,6 +2,11 @@
 // tailwind.config.js
 export const content = ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'];
 export const theme = {
-  extend: {},
+  extend: {
+    fontFamily: {
+      Monserrat: ["Montserrat", "sans-serif"],
+      Poppins: ["Poppins", "sans-serif"]
+     },
+  },
 };
 export const plugins = [];

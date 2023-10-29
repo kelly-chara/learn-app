@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+
+    .header-title {
+       @apply font-Monserrat font-bold text-[56px] leading-[4.8rem] text-neutral-900;
+    }
+
+    .sub-header {
+        @apply font-Monserrat font-bold text-[48px] leading-[4.2rem] text-neutral-900;
+    }
+
+    .text {
+        @apply font-Poppins text-[0.8rem] text-neutral-900;
+    }
+
+    .container {
+        @apply flex flex-col justify-center content-between bg-white;
+    }
+
+
+}

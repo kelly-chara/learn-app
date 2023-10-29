@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    p {
+        @apply font-Poppins text-[0.8rem] text-neutral-900;
+    }    
+}
+
 @layer utilities {
 
     .header-title {
@@ -11,16 +17,25 @@
     }
 
     .sub-header {
-        @apply font-Monserrat font-bold text-[48px] leading-[4.2rem] text-neutral-900;
+        @apply font-Monserrat font-bold leading-[4.2rem] text-neutral-900;
     }
 
-    .text {
+    .text-normal {
         @apply font-Poppins text-[0.8rem] text-neutral-900;
     }
 
     .container {
         @apply flex flex-col justify-center content-between bg-white;
     }
+
+    .button {
+        @apply border border-primary-500 hover:border-primary-550 active:border-primary-600 disabled:opacity-[0.4] p-3;
+    }
+
+    .centered-row {
+        @apply flex flex-col items-center sm:flex-row;
+    }
+
 
 
 }

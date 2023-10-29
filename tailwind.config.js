@@ -7,6 +7,15 @@ export const theme = {
       Monserrat: ["Montserrat", "sans-serif"],
       Poppins: ["Poppins", "sans-serif"]
      },
+     colors: {
+      primary : {
+        '500':'#6355D8FF',
+        '550': '#4D3ED3FF',
+        '600': '#3D2DC7FF'
+      }
+      
+
+    },
   },
 };
 export const plugins = [];

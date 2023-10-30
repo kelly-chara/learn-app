@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;700&family=Poppins:wght@400;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,17 +6,20 @@
 @layer base {
     p {
         @apply font-Poppins text-[0.8rem] text-neutral-900;
-    }    
+    } 
+    span {
+        @apply font-normal;
+    }   
 }
 
 @layer utilities {
 
     .header-title {
-       @apply font-Monserrat font-bold text-[56px] leading-[4.8rem] text-neutral-900;
+       @apply font-Monserrat font-bold text-[56px] text-neutral-900;
     }
 
     .sub-header {
-        @apply font-Monserrat font-bold leading-[4.2rem] text-neutral-900;
+        @apply font-Monserrat font-bold text-neutral-900;
     }
 
     .text-normal {

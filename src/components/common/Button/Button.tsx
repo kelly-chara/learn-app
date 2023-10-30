@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 interface ButtonProps {
 	buttonText: string;
-	handleClick: () => void;
+	handleClick?: () => void;
 }
 
 const Button: FC<ButtonProps> = ({ buttonText, handleClick }) => {

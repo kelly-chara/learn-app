@@ -6,6 +6,7 @@ import {
 } from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../common/Button/Button';
+
 const Courses: FC = () => {
 	return (
 		<div className='w-full h-full p-12'>

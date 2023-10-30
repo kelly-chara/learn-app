@@ -31,7 +31,7 @@
     }
 
     .button {
-        @apply border border-primary-500 hover:border-primary-550 active:border-primary-600 disabled:opacity-[0.4] p-3;
+        @apply border border-primary-500 hover:border-primary-550 active:border-primary-600 disabled:opacity-[0.4] py-1 px-3;
     }
 
     .centered-row {

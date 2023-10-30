@@ -7,7 +7,7 @@ interface AuthorItemProps {
 
 const AuthorItem: FC<AuthorItemProps> = ({ authorName }) => {
 	return (
-		<div>
+		<div className='flex flex-row justify-around my-4 content-center'>
 			<span>{authorName}</span>
 			<Button buttonText='Add author' />
 		</div>

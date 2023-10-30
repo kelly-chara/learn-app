@@ -9,7 +9,7 @@ import Button from '../common/Button/Button';
 
 const Courses: FC = () => {
 	return (
-		<div className='w-full h-full p-12'>
+		<>
 			<div className='flex justify-between my-4'>
 				<SearchBar />
 				<Button buttonText='Add New Course' />
@@ -19,7 +19,7 @@ const Courses: FC = () => {
 					<CourseCard key={course.id} {...course} />
 				))}
 			</div>
-		</div>
+		</>
 	);
 };
 export default Courses;

@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import Button from 'src/components/common/Button/Button';
-
 const SearchBar: FC = () => {
 	return (
 		<form className='flex flex-row gap-4 basis-6/12'>

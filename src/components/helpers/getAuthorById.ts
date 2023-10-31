@@ -8,3 +8,11 @@ export const getAuthorsById = (ids: string[]): string => {
 
 	return authors.join(', ');
 };
+
+export const getAllAuthorsNames = (): string[] => {
+	const authors = mockedAuthorsList.map((author) => {
+		return author.name;
+	});
+
+	return authors;
+};

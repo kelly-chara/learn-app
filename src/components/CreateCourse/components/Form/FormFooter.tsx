@@ -3,12 +3,14 @@ import Input from 'src/components/common/Input/Input';
 
 interface FooterProps {
 	duration: string;
+	errors: { [key: string]: string };
 	inputChange: (
 		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => void;
 }
 export const FormFooter: FC<FooterProps> = ({
 	duration,
+	errors,
 	inputChange,
 }: FooterProps) => {
 	return (
@@ -22,6 +24,7 @@ export const FormFooter: FC<FooterProps> = ({
 					placeholder='Enter duration in minutes...'
 					value={duration}
 					onChangeHandler={inputChange}
+					errors={errors}
 				/>
 				<p>
 					Duration: <span className='font-bold text-2xl'>02:02</span> hours

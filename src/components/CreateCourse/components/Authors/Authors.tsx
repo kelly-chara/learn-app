@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { FC } from 'react';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import { mockedAuthorsList } from 'src/components/constants';
 

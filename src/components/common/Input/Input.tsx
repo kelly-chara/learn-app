@@ -3,9 +3,10 @@ import React, { FC, ChangeEvent } from 'react';
 interface InputProps {
 	nameInput: string;
 	labelName: string;
-	type: 'text' | 'checkbox' | 'textarea';
+	type: 'text' | 'textarea';
 	value: string;
 	placeholder?: string;
+	errors?: { [key: string]: string }; // Accept errors as an object with string keys
 	onChangeHandler?: (
 		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => void;
@@ -17,35 +18,46 @@ const Input: FC<InputProps> = ({
 	type,
 	value,
 	placeholder,
+	errors,
 	onChangeHandler,
 }) => {
+	const hasError = errors && errors[nameInput]; // Check if there is an error for the input
 	return (
-		<label htmlFor={nameInput} className='flex flex-col '>
-			<span>{labelName}</span>
-			{type === 'textarea' ? (
-				<textarea
-					name={nameInput}
-					placeholder={placeholder}
-					rows={4}
-					value={value}
-					onChange={
-						onChangeHandler as React.ChangeEventHandler<HTMLTextAreaElement>
-					}
-					className='border border-primary-600 mt-2 align-middle resize-none pl-2 pt-2'
-				/>
-			) : (
-				<input
-					type={type}
-					name={nameInput}
-					placeholder={placeholder}
-					value={value}
-					onChange={
-						onChangeHandler as React.ChangeEventHandler<HTMLInputElement>
-					}
-					className='border border-primary-600 pr-12 mt-2 p-2'
-				/>
+		<div className='mb-4'>
+			<label htmlFor={nameInput} className='flex flex-col '>
+				<span>{labelName}</span>
+				{type === 'textarea' ? (
+					<textarea
+						name={nameInput}
+						placeholder={placeholder}
+						rows={4}
+						value={value}
+						onChange={
+							onChangeHandler as React.ChangeEventHandler<HTMLTextAreaElement>
+						}
+						className={`border border-primary-600 mt-2 align-middle resize-none pl-2 pt-2 ${
+							hasError ? 'border-red-500' : '' // Apply red border if there is an error
+						}`}
+					/>
+				) : (
+					<input
+						type={type}
+						name={nameInput}
+						placeholder={placeholder}
+						value={value}
+						onChange={
+							onChangeHandler as React.ChangeEventHandler<HTMLInputElement>
+						}
+						className={`border border-primary-600 pr-12 mt-2 p-2 ${
+							hasError ? 'border-red-500' : '' // Apply red border if there is an error
+						}`}
+					/>
+				)}
+			</label>
+			{hasError && (
+				<span className='text-red-500 text-sm'>{errors[nameInput]}</span>
 			)}
-		</label>
+		</div>
 	);
 };
 

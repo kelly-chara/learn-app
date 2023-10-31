@@ -8,11 +8,13 @@ interface HeaderProps {
 		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => void;
 	description: string;
+	errors: { [key: string]: string };
 }
 export const FormHeader: FC<HeaderProps> = ({
 	title,
-	inputChange,
 	description,
+	errors,
+	inputChange,
 }: HeaderProps) => {
 	return (
 		<div>
@@ -24,6 +26,7 @@ export const FormHeader: FC<HeaderProps> = ({
 					placeholder='Enter title...'
 					value={title}
 					onChangeHandler={inputChange}
+					errors={errors}
 				/>
 				<Button buttonText='Create course' />
 			</div>
@@ -36,6 +39,7 @@ export const FormHeader: FC<HeaderProps> = ({
 					placeholder='Enter description'
 					value={description}
 					onChangeHandler={inputChange}
+					errors={errors}
 				/>
 			</div>
 		</div>

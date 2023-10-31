@@ -1,17 +1,32 @@
 import React, { FC } from 'react';
 import Input from 'src/components/common/Input/Input';
 import Button from 'src/components/common/Button/Button';
+import * as Yup from 'yup';
 
 import { useForm } from 'src/components/hooks/useForm';
 
+const validationSchema = Yup.object().shape({
+	authorName: Yup.string()
+		.min(2, 'Too Short!')
+		.max(50, 'Too Long!')
+		.required('Required'),
+});
 export const AuthorForm: FC = () => {
-	const { authorName, inputChange, resetForm } = useForm({
-		authorName: '',
-	});
-	const handleSubmit = (event: React.FormEvent) => {
+	const { authorName, errors, inputChange, resetForm, validateForm } = useForm(
+		{
+			authorName: '',
+		},
+		validationSchema
+	);
+	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
-		console.log('Form submitted:', authorName);
-		resetForm();
+		const isValid = await validateForm(); // Validate the form
+		if (isValid) {
+			console.log('Form submitted:', authorName);
+			resetForm();
+		} else {
+			console.log(errors);
+		}
 	};
 	return (
 		<div className='place-self-center w-full'>

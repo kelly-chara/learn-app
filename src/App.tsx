@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
+import { CoursesProvider } from './components/context/courseContext';
 
 function App() {
 	const [showCreateCourses, setShowCreateCourses] = useState(false);
@@ -11,16 +12,18 @@ function App() {
 	};
 
 	return (
-		<div className='container'>
-			<Header userName='Kelly' />
-			<div className='w-full h-full p-12'>
-				{showCreateCourses ? (
-					<CreateCourse />
-				) : (
-					<Courses toggleView={changeView} />
-				)}
+		<CoursesProvider>
+			<div className='container'>
+				<Header userName='Kelly' />
+				<div className='w-full h-full p-12'>
+					{showCreateCourses ? (
+						<CreateCourse />
+					) : (
+						<Courses toggleView={changeView} />
+					)}
+				</div>
 			</div>
-		</div>
+		</CoursesProvider>
 	);
 }
 

@@ -1,26 +1,28 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import AuthorItem from '../AuthorItem/AuthorItem';
-import { mockedAuthorsList } from 'src/components/constants';
+import { CoursesContext } from 'src/components/context/courseContext';
 
-interface AuthorsProps {
-	chosenAuthorName: string;
+export interface Author {
+	id: string;
+	name: string;
 }
+export const Authors: FC = () => {
+	const { authors, chosenAuthors } = useContext(CoursesContext);
 
-export const Authors: FC<AuthorsProps> = ({ chosenAuthorName }) => {
 	return (
 		<div className='flex flex-col justify-center w-6/12 text-center p-6'>
 			<div>
 				<h4 className='sub-header'>Authors</h4>
 				<div>
-					{mockedAuthorsList.map((author) => (
-						<AuthorItem key={author.id} authorName={author.name} />
+					{authors.map((author) => (
+						<AuthorItem key={author.id} author={author} />
 					))}
 				</div>
 			</div>
 			<div>
 				<h4 className='sub-header'>Course Authors</h4>
 				<div>
-					{chosenAuthorName && <AuthorItem authorName={chosenAuthorName} />}
+					{chosenAuthors?.map((author) => <AuthorItem author={author} />)}
 				</div>
 			</div>
 		</div>

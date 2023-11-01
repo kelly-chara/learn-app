@@ -61,7 +61,7 @@ const CreateCourse: FC = () => {
 						errors={errors}
 					/>
 				</div>
-				<Authors chosenAuthorName='mimi' />
+				<Authors />
 			</div>
 		</form>
 	);

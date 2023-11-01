@@ -28,7 +28,7 @@ export const FormHeader: FC<HeaderProps> = ({
 					onChangeHandler={inputChange}
 					errors={errors}
 				/>
-				<Button buttonText='Create course' />
+				<Button buttonText='Create course' type='submit' />
 			</div>
 
 			<div>

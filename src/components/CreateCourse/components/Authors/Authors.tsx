@@ -18,7 +18,10 @@ export const Authors: FC = () => {
 			<div>
 				<h4 className='sub-header'>Course Authors</h4>
 				<div>
-					{chosenAuthors?.map((author) => <AuthorItem author={author} />)}
+					{chosenAuthors &&
+						chosenAuthors.map((author) => (
+							<AuthorItem key={author.id} author={author} />
+						))}
 				</div>
 			</div>
 		</div>

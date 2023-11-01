@@ -1,12 +1,13 @@
 import React, { useReducer, useEffect } from 'react';
-import { mockedAuthorsList } from '../components/constants';
+import { mockedAuthorsList, mockedCoursesList } from '../components/constants';
 import { coursesReducer } from './courseReducer';
-import { Author } from 'src/types/common/types';
+import { Author, Course } from 'src/types/common/types';
 import { CoursesProviderProps, CoursesState } from 'src/types/context/types';
 import { CoursesContext } from './CourseContext';
 
 const Initial_State: CoursesState = {
 	authors: mockedAuthorsList,
+	courses: mockedCoursesList,
 	chosenAuthors: null,
 };
 
@@ -15,7 +16,7 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 }: CoursesProviderProps) => {
 	const [state, dispatch] = useReducer(coursesReducer, Initial_State);
 
-	// Read authors and chosenAuthors from local storage during initialization
+	// Read authors and courses from local storage during initialization
 	useEffect(() => {
 		const savedAuthors = JSON.parse(
 			localStorage.getItem('authors') || '[]'
@@ -23,8 +24,12 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 		const savedChosenAuthors = JSON.parse(
 			localStorage.getItem('chosenAuthors') || '[]'
 		) as Author[];
+		const savedCourses = JSON.parse(
+			localStorage.getItem('courses') || '[]'
+		) as Course[];
 
 		dispatch({ type: 'setAuthors', payload: savedAuthors });
+		dispatch({ type: 'setCourses', payload: savedCourses });
 		dispatch({ type: 'setChosenAuthors', payload: savedChosenAuthors });
 	}, []);
 
@@ -34,6 +39,12 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 		dispatch({ type: 'setAuthors', payload: authors });
 	};
 
+	const setCourses = (courses: Course[]) => {
+		// Save courses to local storage
+		localStorage.setItem('courses', JSON.stringify(courses));
+		dispatch({ type: 'setCourses', payload: courses });
+	};
+
 	const setChosenAuthors = (chosenAuthors: Author[]) => {
 		// Save chosenAuthors to local storage
 		localStorage.setItem('chosenAuthors', JSON.stringify(chosenAuthors));
@@ -41,7 +52,9 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 	};
 
 	return (
-		<CoursesContext.Provider value={{ ...state, setAuthors, setChosenAuthors }}>
+		<CoursesContext.Provider
+			value={{ ...state, setAuthors, setChosenAuthors, setCourses }}
+		>
 			{children}
 		</CoursesContext.Provider>
 	);

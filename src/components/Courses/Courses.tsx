@@ -1,17 +1,15 @@
-import React from 'react';
-import { mockedCoursesList } from '../constants';
-import {
-	CourseCard,
-	CourseCardProps,
-} from './components/CourseCard/CourseCard';
+import React, { useContext } from 'react';
+import { CourseCard } from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../common/Button/Button';
+import { CoursesContext } from 'src/context/CourseContext';
 
 interface CoursesProps {
 	toggleView: () => void;
 }
 
 const Courses = ({ toggleView }: CoursesProps): JSX.Element => {
+	const { courses } = useContext(CoursesContext);
 	return (
 		<>
 			<div className='flex justify-between my-4'>
@@ -19,7 +17,7 @@ const Courses = ({ toggleView }: CoursesProps): JSX.Element => {
 				<Button buttonText='Add New Course' handleClick={toggleView} />
 			</div>
 			<div className=' flex flex-col gap-6 '>
-				{mockedCoursesList.map((course: CourseCardProps) => (
+				{courses.map((course) => (
 					<CourseCard key={course.id} {...course} />
 				))}
 			</div>

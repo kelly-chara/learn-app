@@ -16,6 +16,11 @@ export const coursesReducer = (
 				...state,
 				authors: payload,
 			};
+		case 'setCourses':
+			return {
+				...state,
+				courses: payload,
+			};
 
 		default:
 			return state;

@@ -5,15 +5,7 @@ import {
 	getCourseDuration,
 	formatCreationDate,
 } from 'src/components/helpers';
-
-export interface CourseCardProps {
-	id: string;
-	title: string;
-	description: string;
-	creationDate: string;
-	duration: number;
-	authors: string[];
-}
+import { CourseCardProps } from 'src/types/common/types';
 
 export const CourseCard: FC<CourseCardProps> = ({
 	title,
@@ -22,6 +14,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 	duration,
 	authors,
 }) => {
+	const formatedAuthors = authors ? getAuthorsById(authors) : 'None';
 	return (
 		<div className='centered-row justify-between items-center basis-full gap-8 border'>
 			<div className='flex flex-col gap-8 basis-full px-2 py-8 content-between'>
@@ -32,7 +25,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 			<div className='flex flex-col justify-between w-4/12 p-2 gap-4'>
 				<div className='flex flex-col gap-2 justify-center p-2'>
 					<p className='font-bold'>
-						Authors: <span>{getAuthorsById(authors)}</span>
+						Authors: <span>{formatedAuthors}</span>
 					</p>
 					<p className='font-bold'>
 						Duration: <span>{getCourseDuration(duration)} hours</span>

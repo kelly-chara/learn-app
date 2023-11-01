@@ -8,12 +8,14 @@ const Input: FC<InputProps> = ({
 	value,
 	placeholder,
 	errors,
+	styles,
 	onChangeHandler,
+	onBlurHandler,
 }) => {
 	const hasError = errors && errors[nameInput]; // Check if there is an error for the input
 	return (
 		<div className='mb-4'>
-			<label htmlFor={nameInput} className='flex flex-col '>
+			<label className='flex flex-col '>
 				<span>{labelName}</span>
 				{type === 'textarea' ? (
 					<textarea
@@ -24,9 +26,13 @@ const Input: FC<InputProps> = ({
 						onChange={
 							onChangeHandler as React.ChangeEventHandler<HTMLTextAreaElement>
 						}
-						className={`border border-primary-600 mt-2 align-middle resize-none pl-2 pt-2 ${
-							hasError ? 'border-red-500' : '' // Apply red border if there is an error
-						}`}
+						className={
+							styles
+								? styles
+								: `border border-primary-600 mt-2 align-middle resize-none pl-2 pt-2 ${
+										hasError ? 'border-red-500' : '' // Apply red border if there is an error
+								  }`
+						}
 					/>
 				) : (
 					<input
@@ -37,9 +43,14 @@ const Input: FC<InputProps> = ({
 						onChange={
 							onChangeHandler as React.ChangeEventHandler<HTMLInputElement>
 						}
-						className={`border border-primary-600 pr-12 mt-2 p-2 ${
-							hasError ? 'border-red-500' : '' // Apply red border if there is an error
-						}`}
+						className={
+							styles
+								? styles
+								: `border border-primary-600 pr-12 mt-2 p-2 ${
+										hasError ? 'border-red-500' : '' // Apply red border if there is an error
+								  }`
+						}
+						onBlur={onBlurHandler}
 					/>
 				)}
 			</label>

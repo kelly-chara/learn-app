@@ -5,9 +5,11 @@ export interface ContextProps {
 	authors: Author[];
 	chosenAuthors: Author[];
 	courses: Course[];
+	filteredCourses: Course[];
 	setAuthors: (authors: Author[]) => void;
 	setChosenAuthors: (authors: Author[]) => void;
 	setCourses: (courses: Course[]) => void;
+	queryCourses: (query: string) => void;
 }
 
 export interface CoursesProviderProps {

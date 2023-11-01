@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FocusEvent } from 'react';
 
 export interface Author {
 	id: string;
@@ -38,10 +38,12 @@ export interface InputProps {
 	type: 'text' | 'textarea';
 	value: string;
 	placeholder?: string;
+	styles?: string;
 	errors?: { [key: string]: string }; // Accept errors as an object with string keys
 	onChangeHandler?: (
 		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => void;
+	onBlurHandler?: (event: FocusEvent<HTMLInputElement>) => void;
 }
 
 export interface FooterFormProps {

@@ -10,9 +10,10 @@ interface CoursesProps {
 
 const Courses = ({ toggleView }: CoursesProps): JSX.Element => {
 	const { courses } = useContext(CoursesContext);
+
 	return (
 		<>
-			<div className='flex justify-between my-4'>
+			<div className='flex flex-col gap-4 sm:flex-row justify-between my-4'>
 				<SearchBar />
 				<Button buttonText='Add New Course' handleClick={toggleView} />
 			</div>

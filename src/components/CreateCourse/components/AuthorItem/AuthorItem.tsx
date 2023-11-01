@@ -20,7 +20,7 @@ const AuthorItem: FC<AuthorItemProps> = ({ author }) => {
 	};
 
 	return (
-		<div className='flex flex-row justify-between px-12 my-4 content-center'>
+		<div className='flex flex-col sm:flex-row justify-between px-12 my-4 content-center'>
 			<span>{author.name}</span>
 			<Button buttonText='Add author' handleClick={handleClick} />
 		</div>

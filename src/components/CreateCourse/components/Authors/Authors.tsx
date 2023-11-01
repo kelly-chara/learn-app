@@ -6,7 +6,7 @@ export const Authors: FC = () => {
 	const { authors, chosenAuthors } = useContext(CoursesContext);
 
 	return (
-		<div className='flex flex-col justify-center w-6/12 text-center p-6'>
+		<div className='flex flex-col sm:justify-center basis-full sm:basis-6/12 text-center sm:p-6'>
 			<div>
 				<h4 className='sub-header'>Authors</h4>
 				<div>

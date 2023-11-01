@@ -1,9 +1,9 @@
-import React, { FC, useContext, useState, useEffect } from 'react';
-import Input from 'src/components/common/Input/Input';
+import React, { FC } from 'react';
+//import Input from 'src/components/common/Input/Input';
 import Button from 'src/components/common/Button/Button';
 import { useForm } from 'src/components/hooks/useForm';
 import * as Yup from 'yup';
-import { CoursesContext } from 'src/context/CourseContext';
+//import { CoursesContext } from 'src/context/CourseContext';
 
 const SearchBar: FC = () => {
 	const validationSchema = Yup.object().shape({
@@ -44,6 +44,8 @@ const SearchBar: FC = () => {
 				type='text'
 				placeholder='enter course name or id...'
 				className=' border border-primary-550 flex-1 pl-2'
+				value={query}
+				onChange={inputChange}
 			/>
 
 			<Button buttonText='Search' type='submit' />

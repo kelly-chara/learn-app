@@ -24,6 +24,7 @@ export interface CourseCardProps {
 }
 export interface AuthorItemProps {
 	author: Author;
+	isInChosenList: boolean;
 }
 
 export interface ButtonProps {

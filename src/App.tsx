@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header/Header';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
-import { CoursesProvider } from './context/CourseContext';
+import { CoursesProvider } from './context/CourseProvider';
 
 function App() {
 	const [showCreateCourses, setShowCreateCourses] = useState(false);

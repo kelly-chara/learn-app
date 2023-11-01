@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import Button from 'src/components/common/Button/Button';
-import { CoursesContext } from 'src/context/courseContext';
+import { CoursesContext } from 'src/context/CourseContext';
 import { AuthorItemProps } from 'src/types/common/types';
 
 const AuthorItem: FC<AuthorItemProps> = ({ author }) => {

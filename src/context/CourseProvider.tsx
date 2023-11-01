@@ -3,7 +3,7 @@ import { mockedAuthorsList } from '../components/constants';
 import { coursesReducer } from './courseReducer';
 import { Author } from 'src/types/common/types';
 import { CoursesProviderProps, CoursesState } from 'src/types/context/types';
-import { CoursesContext } from './courseContext';
+import { CoursesContext } from './CourseContext';
 
 const Initial_State: CoursesState = {
 	authors: mockedAuthorsList,

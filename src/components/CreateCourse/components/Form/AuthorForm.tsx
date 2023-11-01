@@ -4,8 +4,7 @@ import Button from 'src/components/common/Button/Button';
 import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'src/components/hooks/useForm';
-import { mockedAuthorsList } from 'src/components/constants';
-import { CoursesContext } from 'src/components/context/courseContext';
+import { CoursesContext } from 'src/context/CourseContext';
 
 const validationSchema = Yup.object().shape({
 	authorName: Yup.string()
@@ -14,8 +13,7 @@ const validationSchema = Yup.object().shape({
 		.required('Required'),
 });
 export const AuthorForm: FC = () => {
-	//const [authors, setAuthors] = useState(mockedAuthorsList);
-	const { authors, setAuthors, setChosenAuthors } = useContext(CoursesContext);
+	const { setAuthors } = useContext(CoursesContext);
 	const { authorName, errors, inputChange, resetForm, validateForm } = useForm(
 		{
 			authorName: '',
@@ -41,6 +39,9 @@ export const AuthorForm: FC = () => {
 
 			// Save the updated authors back to localStorage
 			localStorage.setItem('authors', JSON.stringify(updatedAuthors));
+
+			// Update the authors in context
+			setAuthors(updatedAuthors);
 
 			console.log('Form submitted:', authorName);
 			resetForm();

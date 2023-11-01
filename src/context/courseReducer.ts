@@ -1,19 +1,12 @@
-import { Author } from '../CreateCourse/components/Authors/Authors';
+import { CoursesState, CoursesActions } from 'src/types/context/types';
 
-type CoursesActions =
-	| { type: 'setAuthor'; payload: Author[] }
-	| { type: 'setAuthors'; payload: Author[] };
-export interface CoursesState {
-	authors: Author[];
-	chosenAuthors: Author[];
-}
 export const coursesReducer = (
 	state: CoursesState,
 	action: CoursesActions
 ): CoursesState => {
 	const { type, payload } = action;
 	switch (type) {
-		case 'setAuthor':
+		case 'setChosenAuthors':
 			return {
 				...state,
 				chosenAuthors: payload,

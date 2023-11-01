@@ -1,18 +1,12 @@
 import React, { FC } from 'react';
 import Input from 'src/components/common/Input/Input';
+import { FooterFormProps } from 'src/types/common/types';
 
-interface FooterProps {
-	duration: string;
-	errors: { [key: string]: string };
-	inputChange: (
-		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => void;
-}
-export const FormFooter: FC<FooterProps> = ({
+export const FormFooter: FC<FooterFormProps> = ({
 	duration,
 	errors,
 	inputChange,
-}: FooterProps) => {
+}: FooterFormProps) => {
 	return (
 		<div>
 			<div className='flex flex-col gap-8'>

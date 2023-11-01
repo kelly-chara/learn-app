@@ -1,16 +1,5 @@
-import React, { FC, ChangeEvent } from 'react';
-
-interface InputProps {
-	nameInput: string;
-	labelName: string;
-	type: 'text' | 'textarea';
-	value: string;
-	placeholder?: string;
-	errors?: { [key: string]: string }; // Accept errors as an object with string keys
-	onChangeHandler?: (
-		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => void;
-}
+import React, { FC } from 'react';
+import { InputProps } from 'src/types/common/types';
 
 const Input: FC<InputProps> = ({
 	nameInput,

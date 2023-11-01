@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
-import { CoursesProvider } from './components/context/courseContext';
+import { CoursesProvider } from './context/CourseContext';
 
 function App() {
 	const [showCreateCourses, setShowCreateCourses] = useState(false);

@@ -1,11 +1,7 @@
 import React, { FC, useContext } from 'react';
 import AuthorItem from '../AuthorItem/AuthorItem';
-import { CoursesContext } from 'src/components/context/courseContext';
+import { CoursesContext } from 'src/context/CourseContext';
 
-export interface Author {
-	id: string;
-	name: string;
-}
 export const Authors: FC = () => {
 	const { authors, chosenAuthors } = useContext(CoursesContext);
 

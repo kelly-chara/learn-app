@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
 import Button from '../common/Button/Button';
 import Logo from './Components/Logo/Logo';
-
-interface HeaderProps {
-	userName: string;
-}
+import { HeaderProps } from 'src/types/common/types';
 
 const Header: FC<HeaderProps> = ({ userName }) => {
 	return (

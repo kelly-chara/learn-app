@@ -1,10 +1,6 @@
 import React, { FC } from 'react';
 
-interface ButtonProps {
-	buttonText: string;
-	handleClick?: (() => void) | ((event: React.FormEvent) => Promise<void>);
-	type?: 'button' | 'submit' | 'reset';
-}
+import { ButtonProps } from 'src/types/common/types';
 
 const Button: FC<ButtonProps> = ({
 	buttonText,

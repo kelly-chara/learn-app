@@ -1,21 +1,14 @@
 import React, { FC } from 'react';
 import Input from 'src/components/common/Input/Input';
 import Button from 'src/components/common/Button/Button';
+import { HeaderFormProps } from 'src/types/common/types';
 
-interface HeaderProps {
-	title: string;
-	inputChange: (
-		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => void;
-	description: string;
-	errors: { [key: string]: string };
-}
-export const FormHeader: FC<HeaderProps> = ({
+export const FormHeader: FC<HeaderFormProps> = ({
 	title,
 	description,
 	errors,
 	inputChange,
-}: HeaderProps) => {
+}: HeaderFormProps) => {
 	return (
 		<div>
 			<div className='flex flex-row justify-between items-center my-5'>

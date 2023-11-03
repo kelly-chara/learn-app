@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import Input from 'src/components/common/Input/Input';
-import Button from 'src/components/common/Button/Button';
 import { HeaderFormProps } from 'src/types/common/types';
+import Button from 'src/components/common/Button/Button';
+import Input from 'src/components/common/Input/Input';
+import TextArea from 'src/components/common/Input/TextArea';
 
 export const FormHeader: FC<HeaderFormProps> = ({
 	title,
@@ -13,7 +14,6 @@ export const FormHeader: FC<HeaderFormProps> = ({
 		<div>
 			<div className='flex flex-row justify-between items-center my-5'>
 				<Input
-					type='text'
 					labelName='Title'
 					nameInput='title'
 					placeholder='Enter title...'
@@ -25,8 +25,7 @@ export const FormHeader: FC<HeaderFormProps> = ({
 			</div>
 
 			<div>
-				<Input
-					type='textarea'
+				<TextArea
 					labelName='Description'
 					nameInput='description'
 					placeholder='Enter description'

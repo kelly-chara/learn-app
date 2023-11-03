@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { InputProps } from 'src/types/common/types';
 import useErrorVisibility from 'src/components/hooks/useErrorVisibility';
-const Input: FC<InputProps> = ({
+const TextArea: FC<InputProps> = ({
 	nameInput,
 	labelName,
 	value,
@@ -18,20 +18,21 @@ const Input: FC<InputProps> = ({
 			<label className='flex flex-col '>
 				<span>{labelName}</span>
 
-				<input
+				<textarea
 					name={nameInput}
 					placeholder={placeholder}
+					rows={4}
 					value={value}
 					onChange={
-						onChangeHandler as React.ChangeEventHandler<HTMLInputElement>
+						onChangeHandler as React.ChangeEventHandler<HTMLTextAreaElement>
 					}
 					onBlur={handleBlur}
 					onFocus={handleFocus}
 					className={
 						styles
 							? styles
-							: `border border-primary-600 pr-12 mt-2 p-2 ${
-									isErrorVisible && hasError ? 'border-red-500' : '' // Apply red border if there is an error
+							: `border border-primary-600 mt-2 align-middle resize-none pl-2 pt-2 ${
+									hasError ? 'border-red-500' : ' ' // Apply red border if there is an error
 							  }`
 					}
 				/>
@@ -43,4 +44,4 @@ const Input: FC<InputProps> = ({
 	);
 };
 
-export default Input;
+export default TextArea;

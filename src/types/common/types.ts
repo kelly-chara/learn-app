@@ -33,7 +33,6 @@ export interface ButtonProps {
 export interface InputProps {
 	nameInput: string;
 	labelName: string;
-	type: 'text' | 'textarea';
 	value: string;
 	placeholder?: string;
 	styles?: string;

@@ -43,7 +43,6 @@ export const AuthorForm: FC = () => {
 			// Update the authors in context
 			setAuthors(updatedAuthors);
 
-			console.log('Form submitted:', authorName);
 			resetForm();
 		} else {
 			console.log(errors);
@@ -54,7 +53,6 @@ export const AuthorForm: FC = () => {
 			<h4 className='sub-header text-center mb-4'>Add author</h4>
 			<div className='flex flex-col  gap-8'>
 				<Input
-					type='text'
 					labelName='Author name'
 					nameInput='authorName'
 					placeholder='Enter author name...'

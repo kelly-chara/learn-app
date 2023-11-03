@@ -15,7 +15,6 @@ export const FormFooter: FC<FooterFormProps> = ({
 			<div className='flex flex-col gap-8'>
 				<h4 className='sub-header text-center'>Duration</h4>
 				<Input
-					type='text'
 					labelName='Duration'
 					nameInput='duration'
 					placeholder='Enter duration in minutes...'

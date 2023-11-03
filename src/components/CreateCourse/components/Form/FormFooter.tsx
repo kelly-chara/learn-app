@@ -21,6 +21,7 @@ export const FormFooter: FC<FooterFormProps> = ({
 					value={duration}
 					onChangeHandler={inputChange}
 					errors={errors}
+					tabIndex={5}
 				/>
 				<p>
 					Duration:{' '}

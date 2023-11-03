@@ -8,6 +8,7 @@ const Input: FC<InputProps> = ({
 	placeholder,
 	errors,
 	styles,
+	tabIndex,
 	onChangeHandler,
 }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
@@ -22,6 +23,7 @@ const Input: FC<InputProps> = ({
 					name={nameInput}
 					placeholder={placeholder}
 					value={value}
+					tabIndex={tabIndex}
 					onChange={
 						onChangeHandler as React.ChangeEventHandler<HTMLInputElement>
 					}

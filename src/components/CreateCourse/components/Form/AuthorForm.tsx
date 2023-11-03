@@ -59,6 +59,7 @@ export const AuthorForm: FC = () => {
 					value={authorName}
 					onChangeHandler={inputChange}
 					errors={errors}
+					tabIndex={4}
 				/>
 
 				<div className='place-self-center'>

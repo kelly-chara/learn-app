@@ -34,6 +34,7 @@ export interface InputProps {
 	nameInput: string;
 	labelName: string;
 	value: string;
+	tabIndex?: number;
 	placeholder?: string;
 	styles?: string;
 	errors?: { [key: string]: string }; // Accept errors as an object with string keys

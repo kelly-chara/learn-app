@@ -20,6 +20,7 @@ export const FormHeader: FC<HeaderFormProps> = ({
 					value={title}
 					onChangeHandler={inputChange}
 					errors={errors}
+					tabIndex={1}
 				/>
 				<Button buttonText='Create course' type='submit' />
 			</div>
@@ -32,6 +33,7 @@ export const FormHeader: FC<HeaderFormProps> = ({
 					value={description}
 					onChangeHandler={inputChange}
 					errors={errors}
+					tabIndex={2}
 				/>
 			</div>
 		</div>

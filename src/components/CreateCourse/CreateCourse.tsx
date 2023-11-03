@@ -33,7 +33,8 @@ const CreateCourse: FC = () => {
 		validationSchema
 	);
 
-	const { chosenAuthors, setCourses } = useContext(CoursesContext);
+	const { chosenAuthors, setCourses, setChosenAuthors } =
+		useContext(CoursesContext);
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const isValid = await validateForm(); // Validate the form
@@ -65,6 +66,7 @@ const CreateCourse: FC = () => {
 
 			// Update the courses in context
 			setCourses(updatedCourses);
+			setChosenAuthors([]);
 
 			resetForm();
 		} else {

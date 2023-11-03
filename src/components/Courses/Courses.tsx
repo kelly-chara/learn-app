@@ -19,7 +19,7 @@ const Courses = ({ toggleView }: CoursesProps): JSX.Element => {
 			</div>
 			<div className=' flex flex-col gap-6 '>
 				{courses.map((course) => (
-					<CourseCard key={course.id} {...course} />
+					<CourseCard key={course.id} course={course} />
 				))}
 			</div>
 		</>

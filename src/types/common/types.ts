@@ -15,12 +15,7 @@ export interface Course {
 }
 
 export interface CourseCardProps {
-	id: string;
-	title: string;
-	description: string;
-	creationDate: string;
-	duration: number;
-	authors: string[];
+	course: Course;
 }
 export interface AuthorItemProps {
 	author: Author;

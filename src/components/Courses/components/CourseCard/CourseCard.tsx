@@ -8,11 +8,7 @@ import {
 import { CourseCardProps } from 'src/types/common/types';
 
 export const CourseCard: FC<CourseCardProps> = ({
-	title,
-	description,
-	creationDate,
-	duration,
-	authors,
+	course: { authors, title, description, duration, creationDate },
 }) => {
 	const formatedAuthors = authors ? getAuthorsById(authors) : 'None';
 	return (

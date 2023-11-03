@@ -25,6 +25,8 @@ export interface CourseCardProps {
 export interface AuthorItemProps {
 	author: Author;
 	isInChosenList: boolean;
+	handleDeletion?: (author: Author) => void;
+	addAuthor?: (author: Author) => void;
 }
 
 export interface ButtonProps {

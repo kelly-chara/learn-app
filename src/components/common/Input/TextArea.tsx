@@ -1,17 +1,9 @@
 import React, { FC } from 'react';
-import { InputProps } from 'src/types/common/types';
+import { TextareaProps } from 'src/types/common/types';
 import useErrorVisibility from 'src/components/hooks/useErrorVisibility';
-const TextArea: FC<InputProps> = ({
-	nameInput,
-	labelName,
-	value,
-	placeholder,
-	errors,
-	styles,
-	onChangeHandler,
-}) => {
+const TextArea: FC<TextareaProps> = ({ labelName, name, errors }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
-		useErrorVisibility(errors, nameInput);
+		useErrorVisibility(errors, name);
 
 	return (
 		<div className='mb-4'>
@@ -19,26 +11,16 @@ const TextArea: FC<InputProps> = ({
 				<span>{labelName}</span>
 
 				<textarea
-					name={nameInput}
-					placeholder={placeholder}
 					rows={4}
-					value={value}
-					onChange={
-						onChangeHandler as React.ChangeEventHandler<HTMLTextAreaElement>
-					}
 					onBlur={handleBlur}
 					onFocus={handleFocus}
-					className={
-						styles
-							? styles
-							: `border border-primary-600 mt-2 align-middle resize-none pl-2 pt-2 ${
-									hasError ? 'border-red-500' : ' ' // Apply red border if there is an error
-							  }`
-					}
+					className={`border border-primary-600 mt-2 align-middle resize-none pl-2 pt-2 ${
+						hasError ? 'border-red-500' : ' ' // Apply red border if there is an error
+					}`}
 				/>
 			</label>
 			{isErrorVisible && hasError && (
-				<span className='text-red-500 text-sm'>{errors[nameInput]}</span>
+				<span className='text-red-500 text-sm'>{errors[name]}</span>
 			)}
 		</div>
 	);

@@ -30,19 +30,29 @@ export interface ButtonProps {
 	type?: 'button' | 'submit' | 'reset';
 }
 
-export interface InputProps {
-	nameInput: string;
-	labelName: string;
-	value: string;
-	tabIndex?: number;
-	placeholder?: string;
-	styles?: string;
+// Shared interface for common properties
+interface CommonProps {
+	/**
+	 * The error object for validations
+	 */
 	errors?: { [key: string]: string }; // Accept errors as an object with string keys
-	onChangeHandler?: (
-		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => void;
-	onBlurHandler?: (event: FocusEvent<HTMLInputElement>) => void;
+	/**
+	 * The label name
+	 */
+	labelName?: string;
 }
+export type InputProps = Omit<
+	React.InputHTMLAttributes<HTMLInputElement>,
+	'prefix'
+> &
+	CommonProps;
+
+// Textarea component props
+export type TextareaProps = Omit<
+	React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+	'prefix'
+> &
+	CommonProps;
 
 export interface FooterFormProps {
 	duration: string;

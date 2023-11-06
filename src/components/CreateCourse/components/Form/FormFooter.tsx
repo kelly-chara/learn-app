@@ -16,10 +16,10 @@ export const FormFooter: FC<FooterFormProps> = ({
 				<h4 className='sub-header text-center'>Duration</h4>
 				<Input
 					labelName='Duration'
-					nameInput='duration'
+					name='duration'
 					placeholder='Enter duration in minutes...'
 					value={duration}
-					onChangeHandler={inputChange}
+					onChange={inputChange}
 					errors={errors}
 					tabIndex={5}
 				/>

@@ -2,33 +2,29 @@ import React, { useState } from 'react';
 import Header from './components/Header/Header';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
-import { CoursesProvider } from './context/CourseProvider';
 import Button from './components/common/Button/Button';
-
+import Registration from './components/Registration/Registration';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Container from './components/common/Container/Container';
 function App() {
-	const [showCreateCourses, setShowCreateCourses] = useState(false);
-
-	const changeView = () => {
-		setShowCreateCourses((showCreateCourses) => !showCreateCourses);
-	};
-
 	return (
-		<CoursesProvider>
-			<div className='container'>
-				<Header userName='Kelly' />
-
-				<div className='w-full h-full p-12'>
-					{showCreateCourses ? (
-						<>
-							<Button buttonText=' < ' handleClick={changeView} />
-							<CreateCourse />
-						</>
-					) : (
-						<Courses toggleView={changeView} />
-					)}
-				</div>
-			</div>
-		</CoursesProvider>
+		<BrowserRouter>
+			<Routes>
+				<Route path='/' element={<Container />}>
+					<Route
+						path='/courses/add'
+						element={
+							<>
+								<Button buttonText=' < ' />
+								<CreateCourse />
+							</>
+						}
+					/>
+					<Route path='/courses' element={<Courses />} />
+					<Route path='/registration' element={<Registration />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 

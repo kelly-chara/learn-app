@@ -74,3 +74,9 @@ export interface HeaderFormProps {
 export interface HeaderProps {
 	userName: string;
 }
+
+export interface User {
+	name: string;
+	email: string;
+	password: string;
+}

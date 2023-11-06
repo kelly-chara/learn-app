@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { InputProps } from 'src/types/common/types';
 import useErrorVisibility from 'src/components/hooks/useErrorVisibility';
-const Input: FC<InputProps> = ({ labelName, errors, name }) => {
+const Input: FC<InputProps> = ({ labelName, errors, name, ...otherProps }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
 		useErrorVisibility(errors, name);
 
@@ -13,6 +13,8 @@ const Input: FC<InputProps> = ({ labelName, errors, name }) => {
 				<input
 					onBlur={handleBlur}
 					onFocus={handleFocus}
+					name={name}
+					{...otherProps}
 					className={`border border-primary-600 pr-12 mt-2 p-2 ${
 						isErrorVisible && hasError ? 'border-red-500' : '' // Apply red border if there is an error
 					}`}

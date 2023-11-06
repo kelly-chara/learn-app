@@ -54,10 +54,10 @@ export const AuthorForm: FC = () => {
 			<div className='flex flex-col  gap-8'>
 				<Input
 					labelName='Author name'
-					nameInput='authorName'
+					name='authorName'
 					placeholder='Enter author name...'
 					value={authorName}
-					onChangeHandler={inputChange}
+					onChange={inputChange}
 					errors={errors}
 					tabIndex={4}
 				/>

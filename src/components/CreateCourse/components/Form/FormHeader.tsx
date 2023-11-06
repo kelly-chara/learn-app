@@ -15,10 +15,10 @@ export const FormHeader: FC<HeaderFormProps> = ({
 			<div className='flex flex-row justify-between items-center my-5'>
 				<Input
 					labelName='Title'
-					nameInput='title'
+					name='title'
 					placeholder='Enter title...'
 					value={title}
-					onChangeHandler={inputChange}
+					onChange={inputChange}
 					errors={errors}
 					tabIndex={1}
 				/>
@@ -28,10 +28,10 @@ export const FormHeader: FC<HeaderFormProps> = ({
 			<div>
 				<TextArea
 					labelName='Description'
-					nameInput='description'
+					name='description'
 					placeholder='Enter description'
 					value={description}
-					onChangeHandler={inputChange}
+					onChange={inputChange}
 					errors={errors}
 					tabIndex={2}
 				/>

@@ -54,7 +54,12 @@ const Registration: FC = () => {
 		}
 	};
 	return (
-		<FormTemplate submitFunction={handleSubmit} action='Login' route='/login'>
+		<FormTemplate
+			submitFunction={handleSubmit}
+			action='Login'
+			route='/login'
+			title='Login'
+		>
 			<Input
 				labelName='Name'
 				onChange={inputChange}

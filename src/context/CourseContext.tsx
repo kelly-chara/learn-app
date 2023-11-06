@@ -7,6 +7,10 @@ export const CoursesContext = createContext<ContextProps | undefined>({
 	chosenAuthors: [],
 	filteredCourses: [],
 	token: null,
+	user: {
+		name: null,
+		email: null,
+	},
 	setAuthors: () => {
 		throw new Error('setAuthors function must be overridden');
 	},
@@ -18,6 +22,9 @@ export const CoursesContext = createContext<ContextProps | undefined>({
 	},
 	setLoginToken: () => {
 		throw new Error('setLoginToken function must be overridden');
+	},
+	setUser: () => {
+		throw new Error('setUser function must be overridden');
 	},
 	queryCourses: () => {
 		throw new Error('queryCourses function must be overridden');

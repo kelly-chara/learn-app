@@ -15,7 +15,11 @@ const AuthorItem: FC<AuthorItemProps> = ({
 			)}
 
 			<span>{author.name}</span>
-			<Button buttonText='Add author' handleClick={() => addAuthor(author)} />
+			<Button
+				buttonText='Add author'
+				type='button'
+				handleClick={() => addAuthor(author)}
+			/>
 		</div>
 	);
 };

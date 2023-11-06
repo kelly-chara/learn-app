@@ -21,6 +21,16 @@ export const coursesReducer = (
 				...state,
 				courses: payload,
 			};
+		case 'setUser':
+			return {
+				...state,
+				user: payload,
+			};
+		case 'setUserToken':
+			return {
+				...state,
+				token: payload,
+			};
 
 		default:
 			return state;

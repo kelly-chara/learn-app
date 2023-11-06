@@ -21,7 +21,7 @@ const Login: FC = () => {
 			},
 			validationSchema
 		);
-	const { setLoginToken } = useContext(CoursesContext);
+	const { setLoginToken, setUser } = useContext(CoursesContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event: React.FormEvent) => {
@@ -33,11 +33,13 @@ const Login: FC = () => {
 				email,
 			};
 
-			const { successful, result } = await LogUser(userData);
+			const { successful, result, user } = await LogUser(userData);
 
 			if (successful) {
 				resetForm();
 				setLoginToken(result);
+				console.log(user);
+				setUser(user);
 				navigate('/courses', { replace: true });
 			}
 			resetForm();
@@ -50,6 +52,7 @@ const Login: FC = () => {
 			submitFunction={handleSubmit}
 			action='Register'
 			route='/registration'
+			title='Login'
 		>
 			<Input
 				labelName='Email'

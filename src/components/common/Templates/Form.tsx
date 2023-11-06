@@ -6,16 +6,18 @@ interface FormTemplateProps {
 	submitFunction: (event: React.FormEvent) => Promise<void>;
 	action: string;
 	route: string;
+	title: string;
 }
 const FormTemplate = ({
 	children,
 	submitFunction,
 	action,
 	route,
+	title,
 }: FormTemplateProps): JSX.Element => {
 	return (
 		<div className='flex flex-col justify-center items-center gap-3 '>
-			<h2 className='text-2xl text-center'>Registration</h2>
+			<h2 className='text-2xl text-center'>{title}</h2>
 			<form
 				onSubmit={submitFunction}
 				className='flex flex-col justify-center items-center gap-1 w-8/12'

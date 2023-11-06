@@ -24,10 +24,11 @@ export interface AuthorItemProps {
 	addAuthor?: (author: Author) => void;
 }
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonAttributes {
 	buttonText: string;
+	className?: string;
+	style?: React.CSSProperties;
 	handleClick?: (() => void) | ((event: React.FormEvent) => Promise<void>);
-	type?: 'button' | 'submit' | 'reset';
 }
 
 // Shared interface for common properties
@@ -54,6 +55,10 @@ export type TextareaProps = Omit<
 > &
 	CommonProps;
 
+export type ButtonAttributes = Omit<
+	React.ButtonHTMLAttributes<HTMLButtonElement>,
+	'prefix'
+>;
 export interface FooterFormProps {
 	duration: string;
 	errors: { [key: string]: string };

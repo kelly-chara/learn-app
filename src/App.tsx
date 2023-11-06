@@ -6,6 +6,8 @@ import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Container from './components/common/Container/Container';
+import { CourseInfo } from './components/CourseInfo/CourseInfo';
+CourseInfo;
 function App() {
 	return (
 		<BrowserRouter>
@@ -21,6 +23,7 @@ function App() {
 						}
 					/>
 					<Route path='/courses' element={<Courses />} />
+					<Route path='/courses/:courseId' element={<CourseInfo />} />
 					<Route path='/registration' element={<Registration />} />
 					<Route path='/login' element={<Login />} />
 				</Route>

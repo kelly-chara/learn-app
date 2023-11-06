@@ -5,10 +5,17 @@ import { ButtonProps } from 'src/types/common/types';
 const Button: FC<ButtonProps> = ({
 	buttonText,
 	handleClick,
-	type = 'button',
+	className,
+	style,
+	...buttonProps
 }) => {
 	return (
-		<button className='button' type={type} onClick={handleClick}>
+		<button
+			style={style}
+			className={`button ${className}`}
+			onClick={handleClick}
+			{...buttonProps}
+		>
 			{buttonText}
 		</button>
 	);

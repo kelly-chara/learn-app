@@ -9,6 +9,7 @@ const Initial_State: CoursesState = {
 	authors: mockedAuthorsList,
 	courses: mockedCoursesList,
 	chosenAuthors: [],
+	token: null,
 };
 
 export const CoursesProvider: React.FC<CoursesProviderProps> = ({
@@ -67,6 +68,11 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 		dispatch({ type: 'setChosenAuthors', payload: chosenAuthors });
 	};
 
+	const setLoginToken = (token: string) => {
+		localStorage.setItem('token', JSON.stringify(token));
+		dispatch({ type: 'setUserToken', payload: token });
+	};
+
 	const queryCourses = (query: string) => {
 		const filteredCourses: Course[] = state.courses.filter((course) => {
 			// Check if either id or title contains the query string
@@ -86,6 +92,7 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 				setAuthors,
 				setChosenAuthors,
 				setCourses,
+				setLoginToken,
 				queryCourses,
 			}}
 		>

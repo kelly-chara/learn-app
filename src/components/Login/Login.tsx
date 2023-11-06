@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { useForm } from '../hooks/useForm';
 import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { LogUser } from 'src/Axios Request/userCreation';
 import FormTemplate from '../common/Templates/Form';
+import { CoursesContext } from 'src/context/CourseContext';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string().email().required(),
@@ -20,6 +21,7 @@ const Login: FC = () => {
 			},
 			validationSchema
 		);
+	const { setLoginToken } = useContext(CoursesContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event: React.FormEvent) => {
@@ -31,10 +33,11 @@ const Login: FC = () => {
 				email,
 			};
 
-			const userWasLogued = LogUser(userData);
+			const { successful, result } = await LogUser(userData);
 
-			if (userWasLogued) {
+			if (successful) {
 				resetForm();
+				setLoginToken(result);
 				navigate('/courses', { replace: true });
 			}
 			resetForm();

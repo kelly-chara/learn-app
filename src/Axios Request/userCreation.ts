@@ -15,12 +15,16 @@ interface logindata {
 	email: string;
 	password: string;
 }
-export const LogUser = async (newUser: logindata) => {
+interface apiResponse {
+	successful: string;
+	result: string;
+}
+export const LogUser = async (newUser: logindata): Promise<apiResponse> => {
 	try {
 		const response = await CoursesApi.post('/login', newUser);
-		const { successful } = response.data;
+		const { successful, result } = response.data;
 
-		return successful;
+		return { successful, result };
 	} catch (error) {
 		alert('Error: ' + error.response.data.errors);
 	}

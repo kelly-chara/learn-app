@@ -89,8 +89,8 @@ const Registration: FC = () => {
 
 			<span>
 				if you have an account you can{' '}
-				<Link to={'/'} className='text-blue-600'>
-					login
+				<Link to={'/login'} className='text-blue-600'>
+					Login
 				</Link>
 			</span>
 		</div>

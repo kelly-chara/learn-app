@@ -10,3 +10,18 @@ export const CreateUser = async (newUser: User) => {
 		alert('Error: ' + error.response.data.errors);
 	}
 };
+
+interface logindata {
+	email: string;
+	password: string;
+}
+export const LogUser = async (newUser: logindata) => {
+	try {
+		const response = await CoursesApi.post('/login', newUser);
+		const { successful } = response.data;
+
+		return successful;
+	} catch (error) {
+		alert('Error: ' + error.response.data.errors);
+	}
+};

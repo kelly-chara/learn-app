@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
-import Button from './components/common/Button/Button';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Container from './components/common/Container/Container';
+import { GetAllCourses } from './services';
 
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
 CourseInfo;
@@ -15,7 +15,7 @@ function App() {
 	useEffect(() => {
 		// Check if there is a token in localStorage
 		const token = localStorage.getItem('token');
-
+		GetAllCourses();
 		// If token is present, redirect to '/courses'
 		if (token) {
 			navigate('/courses');

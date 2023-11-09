@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
-import Header from './components/Header/Header';
+import React, { useEffect } from 'react';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
-import { CoursesProvider } from './context/CourseProvider';
-import Button from './components/common/Button/Button';
+import Registration from './components/Registration/Registration';
+import Login from './components/Login/Login';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Container from './components/common/Container/Container';
 
+import { CourseInfo } from './components/CourseInfo/CourseInfo';
+CourseInfo;
 function App() {
-	const [showCreateCourses, setShowCreateCourses] = useState(false);
+	const navigate = useNavigate();
 
-	const changeView = () => {
-		setShowCreateCourses((showCreateCourses) => !showCreateCourses);
-	};
+	useEffect(() => {
+		// Check if there is a token in localStorage
+		const token = localStorage.getItem('token');
 
+		// If token is present, redirect to '/courses'
+		if (token) {
+			navigate('/courses');
+		} else {
+			navigate('/login');
+		}
+	}, []);
 	return (
-		<CoursesProvider>
-			<div className='container'>
-				<Header userName='Kelly' />
-
-				<div className='w-full h-full p-12'>
-					{showCreateCourses ? (
-						<>
-							<Button buttonText=' < ' handleClick={changeView} />
-							<CreateCourse />
-						</>
-					) : (
-						<Courses toggleView={changeView} />
-					)}
-				</div>
-			</div>
-		</CoursesProvider>
+		<Routes>
+			<Route path='/' element={<Container />}>
+				<Route path='/courses/add' element={<CreateCourse />} />
+				<Route path='/courses' element={<Courses />} />
+				<Route path='/courses/:courseId' element={<CourseInfo />} />
+				<Route path='/registration' element={<Registration />} />
+				<Route path='/login' element={<Login />} />
+			</Route>
+		</Routes>
 	);
 }
 

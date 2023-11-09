@@ -5,6 +5,7 @@ import { useForm } from '../hooks/useForm';
 import { v4 as uuidv4 } from 'uuid';
 import * as Yup from 'yup';
 import { CoursesContext } from 'src/context/CourseContext';
+import { useNavigate } from 'react-router-dom';
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
 		.min(2, 'Too Short!')
@@ -32,6 +33,7 @@ const CreateCourse: FC = () => {
 		},
 		validationSchema
 	);
+	const navigate = useNavigate();
 
 	const { chosenAuthors, setCourses, setChosenAuthors } =
 		useContext(CoursesContext);
@@ -67,6 +69,7 @@ const CreateCourse: FC = () => {
 			// Update the courses in context
 			setCourses(updatedCourses);
 			setChosenAuthors([]);
+			navigate('/courses');
 
 			resetForm();
 		} else {

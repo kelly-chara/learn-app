@@ -12,6 +12,7 @@ const validationSchema = Yup.object().shape({
 		.max(50, 'Too Long!')
 		.required('Required'),
 });
+
 export const AuthorForm: FC = () => {
 	const { setAuthors } = useContext(CoursesContext);
 	const { authorName, errors, inputChange, resetForm, validateForm } = useForm(
@@ -54,10 +55,10 @@ export const AuthorForm: FC = () => {
 			<div className='flex flex-col  gap-8'>
 				<Input
 					labelName='Author name'
-					nameInput='authorName'
+					name='authorName'
 					placeholder='Enter author name...'
 					value={authorName}
-					onChangeHandler={inputChange}
+					onChange={inputChange}
 					errors={errors}
 					tabIndex={4}
 				/>

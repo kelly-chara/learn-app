@@ -1,14 +1,31 @@
 import React, { FC } from 'react';
 
-import { ButtonProps } from 'src/types/common/types';
+type ButtonAttributes = Omit<
+	React.ButtonHTMLAttributes<HTMLButtonElement>,
+	'prefix'
+>;
+
+interface ButtonProps extends ButtonAttributes {
+	buttonText: string;
+	className?: string;
+	style?: React.CSSProperties;
+	handleClick?: (() => void) | ((event: React.FormEvent) => Promise<void>);
+}
 
 const Button: FC<ButtonProps> = ({
 	buttonText,
 	handleClick,
-	type = 'button',
+	className,
+	style,
+	...buttonProps
 }) => {
 	return (
-		<button className='button' type={type} onClick={handleClick}>
+		<button
+			style={style}
+			className={`button ${className}`}
+			onClick={handleClick}
+			{...buttonProps}
+		>
 			{buttonText}
 		</button>
 	);

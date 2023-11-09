@@ -1,8 +1,16 @@
 import React, { FC } from 'react';
-import { HeaderFormProps } from 'src/types/common/types';
 import Button from 'src/components/common/Button/Button';
 import Input from 'src/components/common/Input/Input';
 import TextArea from 'src/components/common/Input/TextArea';
+
+export interface HeaderFormProps {
+	title: string;
+	inputChange: (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => void;
+	description: string;
+	errors: { [key: string]: string };
+}
 
 export const FormHeader: FC<HeaderFormProps> = ({
 	title,
@@ -15,10 +23,10 @@ export const FormHeader: FC<HeaderFormProps> = ({
 			<div className='flex flex-row justify-between items-center my-5'>
 				<Input
 					labelName='Title'
-					nameInput='title'
+					name='title'
 					placeholder='Enter title...'
 					value={title}
-					onChangeHandler={inputChange}
+					onChange={inputChange}
 					errors={errors}
 					tabIndex={1}
 				/>
@@ -28,10 +36,10 @@ export const FormHeader: FC<HeaderFormProps> = ({
 			<div>
 				<TextArea
 					labelName='Description'
-					nameInput='description'
+					name='description'
 					placeholder='Enter description'
 					value={description}
-					onChangeHandler={inputChange}
+					onChange={inputChange}
 					errors={errors}
 					tabIndex={2}
 				/>

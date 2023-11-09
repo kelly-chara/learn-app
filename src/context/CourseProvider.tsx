@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect, useState } from 'react';
 import { mockedAuthorsList, mockedCoursesList } from '../components/constants';
 import { coursesReducer } from './courseReducer';
-import { Author, Course } from 'src/types/common/types';
+import { Author, Course, User } from 'src/types/common/types';
 import { CoursesProviderProps, CoursesState } from 'src/types/context/types';
 import { CoursesContext } from './CourseContext';
 
@@ -9,6 +9,8 @@ const Initial_State: CoursesState = {
 	authors: mockedAuthorsList,
 	courses: mockedCoursesList,
 	chosenAuthors: [],
+	token: null,
+	user: null,
 };
 
 export const CoursesProvider: React.FC<CoursesProviderProps> = ({
@@ -67,6 +69,15 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 		dispatch({ type: 'setChosenAuthors', payload: chosenAuthors });
 	};
 
+	const setLoginToken = (token: string) => {
+		localStorage.setItem('token', JSON.stringify(token));
+		dispatch({ type: 'setUserToken', payload: token });
+	};
+
+	const setUser = (user: User) => {
+		dispatch({ type: 'setUser', payload: user });
+	};
+
 	const queryCourses = (query: string) => {
 		const filteredCourses: Course[] = state.courses.filter((course) => {
 			// Check if either id or title contains the query string
@@ -86,6 +97,8 @@ export const CoursesProvider: React.FC<CoursesProviderProps> = ({
 				setAuthors,
 				setChosenAuthors,
 				setCourses,
+				setLoginToken,
+				setUser,
 				queryCourses,
 			}}
 		>

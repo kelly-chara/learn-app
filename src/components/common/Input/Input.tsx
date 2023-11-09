@@ -1,18 +1,16 @@
 import React, { FC } from 'react';
-import { InputProps } from 'src/types/common/types';
+import { InputCommonProps } from 'src/types/common/types';
 import useErrorVisibility from 'src/components/hooks/useErrorVisibility';
-const Input: FC<InputProps> = ({
-	nameInput,
-	labelName,
-	value,
-	placeholder,
-	errors,
-	styles,
-	tabIndex,
-	onChangeHandler,
-}) => {
+
+export type InputProps = Omit<
+	React.InputHTMLAttributes<HTMLInputElement>,
+	'prefix'
+> &
+	InputCommonProps;
+
+const Input: FC<InputProps> = ({ labelName, errors, name, ...otherProps }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
-		useErrorVisibility(errors, nameInput);
+		useErrorVisibility(errors, name);
 
 	return (
 		<div className='mb-4'>
@@ -20,26 +18,17 @@ const Input: FC<InputProps> = ({
 				<span>{labelName}</span>
 
 				<input
-					name={nameInput}
-					placeholder={placeholder}
-					value={value}
-					tabIndex={tabIndex}
-					onChange={
-						onChangeHandler as React.ChangeEventHandler<HTMLInputElement>
-					}
 					onBlur={handleBlur}
 					onFocus={handleFocus}
-					className={
-						styles
-							? styles
-							: `border border-primary-600 pr-12 mt-2 p-2 ${
-									isErrorVisible && hasError ? 'border-red-500' : '' // Apply red border if there is an error
-							  }`
-					}
+					name={name}
+					{...otherProps}
+					className={`border border-primary-600 pr-12 mt-2 p-2 ${
+						isErrorVisible && hasError ? 'border-red-500' : '' // Apply red border if there is an error
+					}`}
 				/>
 			</label>
 			{isErrorVisible && hasError && (
-				<span className='text-red-500 text-sm'>{errors[nameInput]}</span>
+				<span className='text-red-500 text-sm'>{errors[name]}</span>
 			)}
 		</div>
 	);

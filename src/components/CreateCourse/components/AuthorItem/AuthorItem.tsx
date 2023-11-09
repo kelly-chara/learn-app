@@ -1,6 +1,13 @@
 import React, { FC } from 'react';
 import Button from 'src/components/common/Button/Button';
-import { AuthorItemProps } from 'src/types/common/types';
+import { Author } from 'src/types/common/types';
+
+export interface AuthorItemProps {
+	author: Author;
+	isInChosenList: boolean;
+	handleDeletion?: (author: Author) => void;
+	addAuthor?: (author: Author) => void;
+}
 
 const AuthorItem: FC<AuthorItemProps> = ({
 	author,
@@ -15,7 +22,11 @@ const AuthorItem: FC<AuthorItemProps> = ({
 			)}
 
 			<span>{author.name}</span>
-			<Button buttonText='Add author' handleClick={() => addAuthor(author)} />
+			<Button
+				buttonText='Add author'
+				type='button'
+				handleClick={() => addAuthor(author)}
+			/>
 		</div>
 	);
 };

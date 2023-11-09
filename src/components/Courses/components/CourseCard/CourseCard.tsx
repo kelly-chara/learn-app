@@ -1,16 +1,25 @@
 import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'src/components/common/Button/Button';
 import {
 	getAuthorsById,
 	getCourseDuration,
 	formatCreationDate,
 } from 'src/components/helpers';
-import { CourseCardProps } from 'src/types/common/types';
+import { Course } from 'src/types/common/types';
+
+export interface CourseCardProps {
+	course: Course;
+}
 
 export const CourseCard: FC<CourseCardProps> = ({
-	course: { authors, title, description, duration, creationDate },
+	course: { authors, title, description, duration, creationDate, id },
 }) => {
 	const formatedAuthors = authors ? getAuthorsById(authors) : 'None';
+	const navigate = useNavigate();
+	const goToCourseInfo = () => {
+		navigate(id);
+	};
 	return (
 		<div className='sm:centered-row justify-between items-center basis-full gap-8 border'>
 			<div className='flex flex-col gap-8 basis-full px-2 py-8 content-between'>
@@ -32,7 +41,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 				</div>
 
 				<div className='flex justify-center items-center'>
-					<Button buttonText='Show Course' />
+					<Button buttonText='Show Course' handleClick={goToCourseInfo} />
 				</div>
 			</div>
 		</div>

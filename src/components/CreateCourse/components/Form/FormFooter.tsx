@@ -1,7 +1,14 @@
 import React, { FC } from 'react';
 import Input from 'src/components/common/Input/Input';
-import { FooterFormProps } from 'src/types/common/types';
 import { getCourseDuration } from 'src/components/helpers';
+
+export interface FooterFormProps {
+	duration: string;
+	errors: { [key: string]: string };
+	inputChange: (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => void;
+}
 
 export const FormFooter: FC<FooterFormProps> = ({
 	duration,

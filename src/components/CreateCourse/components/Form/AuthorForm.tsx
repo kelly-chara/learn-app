@@ -12,6 +12,7 @@ const validationSchema = Yup.object().shape({
 		.max(50, 'Too Long!')
 		.required('Required'),
 });
+
 export const AuthorForm: FC = () => {
 	const { setAuthors } = useContext(CoursesContext);
 	const { authorName, errors, inputChange, resetForm, validateForm } = useForm(

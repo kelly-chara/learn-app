@@ -6,7 +6,11 @@ import {
 	getCourseDuration,
 	formatCreationDate,
 } from 'src/components/helpers';
-import { CourseCardProps } from 'src/types/common/types';
+import { Course } from 'src/types/common/types';
+
+export interface CourseCardProps {
+	course: Course;
+}
 
 export const CourseCard: FC<CourseCardProps> = ({
 	course: { authors, title, description, duration, creationDate, id },

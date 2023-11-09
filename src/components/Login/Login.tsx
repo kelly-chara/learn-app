@@ -4,7 +4,7 @@ import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { LogUser } from 'src/Axios Request/userCreation';
+import { logUser } from 'src/ApiRequests/userCreation';
 import FormTemplate from '../common/Templates/Form';
 import { CoursesContext } from 'src/context/CourseContext';
 
@@ -32,19 +32,15 @@ const Login: FC = () => {
 				password,
 				email,
 			};
-
-			const { successful, result, user } = await LogUser(userData);
-
-			if (successful) {
+			try {
+				const { result, user } = await logUser(userData);
 				resetForm();
 				setLoginToken(result);
-				console.log(user);
 				setUser(user);
 				navigate('/courses', { replace: true });
+			} catch (error) {
+				console.error('Error occurred while logging in:', error);
 			}
-			resetForm();
-		} else {
-			console.log(errors);
 		}
 	};
 	return (

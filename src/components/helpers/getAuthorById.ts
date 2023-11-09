@@ -4,8 +4,6 @@ export const getAuthorsById = (
 	ids: string[],
 	existingAuthors: AuthorType[]
 ): string[] => {
-	// eslint-disable-next-line no-debugger
-	debugger;
 	const authors = ids.map((id) => {
 		console.log(id);
 		console.log(existingAuthors);

@@ -11,7 +11,7 @@ export const authorsReducer = (
 			return [...state, action.payload];
 
 		case AuthorActionTypes.GET_ALL_AUTHORS:
-			return [...state, action.payload];
+			return [...action.payload];
 
 		default:
 			return state;

@@ -7,9 +7,10 @@ import {
 	formatCreationDate,
 } from 'src/components/helpers';
 import { Course } from 'src/types/common/types';
-import { RootState } from 'src/types/store/rootTypes';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { deleteCourseAction } from 'src/store/courses/actions';
+import { getAuthorsSelector } from 'src/store/selectors';
+
 export interface CourseCardProps {
 	course: Course;
 }
@@ -17,7 +18,7 @@ export interface CourseCardProps {
 export const CourseCard: FC<CourseCardProps> = ({
 	course: { authors, title, description, duration, creationDate, id },
 }) => {
-	const allAuthors = useAppSelector((state: RootState) => state.authors);
+	const allAuthors = useAppSelector(getAuthorsSelector);
 	const dispatch = useAppDispatch();
 	const formatedAuthors = getAuthorsById(authors, allAuthors);
 	const navigate = useNavigate();

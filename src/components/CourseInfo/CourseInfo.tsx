@@ -8,10 +8,10 @@ import {
 	getCourseById,
 } from '../helpers';
 import { useAppSelector } from 'src/store/hooks';
-
+import { getAuthorsSelector, getCoursesSelector } from 'src/store/selectors';
 export const CourseInfo: FC = () => {
-	const authorsState = useAppSelector((state) => state.authors);
-	const coursesState = useAppSelector((state) => state.courses);
+	const authorsState = useAppSelector(getAuthorsSelector);
+	const coursesState = useAppSelector(getCoursesSelector);
 
 	const { courseId } = useParams();
 	const course = getCourseById(courseId, coursesState);

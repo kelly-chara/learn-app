@@ -5,6 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { logoutUser } from 'src/services';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { logoutUserAction } from 'src/store/user/actions';
+import { getUserSelector } from 'src/store/selectors';
+
 export interface HeaderProps {
 	userName: string;
 }
@@ -12,7 +14,7 @@ export interface HeaderProps {
 const Header: FC<HeaderProps> = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-	const { token, name } = useAppSelector((state) => state.user);
+	const { token, name } = useAppSelector(getUserSelector);
 	const logoutHandler = async () => {
 		try {
 			await logoutUser(token);

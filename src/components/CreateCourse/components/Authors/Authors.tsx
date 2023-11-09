@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import { useAppSelector } from 'src/store/hooks';
 import { AuthorType } from 'src/store/authors/types';
+import { getAuthorsSelector } from 'src/store/selectors';
 
 interface AuthorProps {
 	deleteAuthor: (author: AuthorType) => void;
@@ -14,7 +15,7 @@ export const Authors: FC<AuthorProps> = ({
 	choseAuthor,
 	chosenAuthors,
 }) => {
-	const authors = useAppSelector((state) => state.authors);
+	const authors = useAppSelector(getAuthorsSelector);
 
 	return (
 		<div className='flex flex-col sm:justify-center basis-full sm:basis-6/12 text-center sm:p-6'>

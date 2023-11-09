@@ -4,9 +4,10 @@ import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../common/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'src/store/hooks';
+import { getCoursesSelector } from 'src/store/selectors';
 
 const Courses = (): JSX.Element => {
-	const courses = useAppSelector((state) => state.courses);
+	const courses = useAppSelector(getCoursesSelector);
 	const navigate = useNavigate();
 
 	return (

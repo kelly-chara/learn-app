@@ -3,7 +3,6 @@ import { logindata, apiResponse } from './types/services/servicesTypes';
 import { User } from 'src/types/common/types';
 import { CourseType } from 'src/store/courses/types';
 import { AuthorType } from './store/authors/types';
-import { config } from 'process';
 
 const CoursesApi = axios.create({
 	baseURL: 'http://localhost:4000',
@@ -58,6 +57,11 @@ export const addNewCourse = async (
 	return data;
 };
 
+export const deleteCourse = async (courseId: string): Promise<apiResponse> => {
+	const response = await CoursesApi.delete(`/courses/${courseId}`);
+	const data = response.data;
+	return data;
+};
 // Author services
 
 export const getAllAuthors = async (): Promise<AuthorType[]> => {

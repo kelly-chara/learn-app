@@ -7,8 +7,9 @@ import {
 	formatCreationDate,
 } from 'src/components/helpers';
 import { Course } from 'src/types/common/types';
-import { useSelector } from 'react-redux';
 import { RootState } from 'src/types/store/rootTypes';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { deleteCourseAction } from 'src/store/courses/actions';
 export interface CourseCardProps {
 	course: Course;
 }
@@ -16,12 +17,16 @@ export interface CourseCardProps {
 export const CourseCard: FC<CourseCardProps> = ({
 	course: { authors, title, description, duration, creationDate, id },
 }) => {
-	const allAuthors = useSelector((state: RootState) => state.authors);
-
+	const allAuthors = useAppSelector((state: RootState) => state.authors);
+	const dispatch = useAppDispatch();
 	const formatedAuthors = getAuthorsById(authors, allAuthors);
 	const navigate = useNavigate();
 	const goToCourseInfo = () => {
 		navigate(id);
+	};
+
+	const handleCourseDeletion = async () => {
+		dispatch(deleteCourseAction(id));
 	};
 	return (
 		<div className='sm:centered-row justify-between items-center basis-full gap-8 border'>
@@ -45,7 +50,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 
 				<div className='flex flex-row gap-2'>
 					<Button buttonText='🖉' />
-					<Button buttonText='🗑️' />
+					<Button buttonText='🗑️' handleClick={handleCourseDeletion} />
 
 					<div>
 						<Button

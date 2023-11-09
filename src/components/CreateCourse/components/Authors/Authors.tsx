@@ -1,28 +1,19 @@
 import React, { FC } from 'react';
 import AuthorItem from '../AuthorItem/AuthorItem';
-import { Author } from 'src/types/common/types';
 import { useAppSelector } from 'src/store/hooks';
-export const Authors: FC = () => {
-	/*const choseAuthor = (author: Author) => {
-		// Check if the author is already in the chosenAuthors array
-		const isAuthorAlreadyChosen = chosenAuthors.some(
-			(chosenAuthor) => chosenAuthor.id === author.id
-		);
+import { AuthorType } from 'src/store/authors/types';
 
-		if (!isAuthorAlreadyChosen) {
-			// If the author is not already chosen, add it to the chosenAuthors array
-			const updatedChosenAuthors = [...chosenAuthors, author];
-			setChosenAuthors(updatedChosenAuthors);
-		}
-	};
+interface AuthorProps {
+	deleteAuthor: (author: AuthorType) => void;
+	choseAuthor: (author: AuthorType) => void;
+	chosenAuthors: AuthorType[];
+}
 
-	const deleteAuthor = (author: Author) => {
-		// Filter out the selected author from chosenAuthors array
-		const updatedChosenAuthors = chosenAuthors.filter(
-			(chosenAuthor) => chosenAuthor.id !== author.id
-		);
-		setChosenAuthors(updatedChosenAuthors);*/
-
+export const Authors: FC<AuthorProps> = ({
+	deleteAuthor,
+	choseAuthor,
+	chosenAuthors,
+}) => {
 	const authors = useAppSelector((state) => state.authors);
 
 	return (
@@ -35,8 +26,8 @@ export const Authors: FC = () => {
 							isInChosenList={false}
 							key={author.id}
 							author={author}
-							//handleDeletion={deleteAuthor}
-							//addAuthor={choseAuthor}
+							handleDeletion={deleteAuthor}
+							addAuthor={choseAuthor}
 						/>
 					))}
 				</div>
@@ -44,7 +35,7 @@ export const Authors: FC = () => {
 			<div>
 				<h4 className='sub-header'>Course Authors</h4>
 				<div>
-					{/*chosenAuthors &&
+					{chosenAuthors &&
 						chosenAuthors.map((author) => (
 							<AuthorItem
 								isInChosenList={true}
@@ -53,7 +44,7 @@ export const Authors: FC = () => {
 								handleDeletion={deleteAuthor}
 								addAuthor={choseAuthor}
 							/>
-						))*/}
+						))}
 				</div>
 			</div>
 		</div>

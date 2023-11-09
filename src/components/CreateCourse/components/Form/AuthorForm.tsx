@@ -3,7 +3,7 @@ import Input from 'src/components/common/Input/Input';
 import Button from 'src/components/common/Button/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'src/components/hooks/useForm';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { useAppDispatch } from 'src/store/hooks';
 import { addNewAuthorAction } from 'src/store/authors/actions';
 import * as Yup from 'yup';
 

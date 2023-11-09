@@ -1,11 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Authors } from './components/Authors/Authors';
 import { FormHeader, AuthorForm, FormFooter } from './components/Form';
 import { useForm } from '../hooks/useForm';
 import { v4 as uuidv4 } from 'uuid';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { useAppDispatch } from 'src/store/hooks';
+import { addNewCourseAction } from 'src/store/courses/actions';
+import { AuthorType } from 'src/store/authors/types';
+
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
 		.min(2, 'Too Short!')
@@ -16,6 +19,7 @@ const validationSchema = Yup.object().shape({
 		.required('Field is required'),
 	duration: Yup.number().required('Field is required'),
 });
+
 const CreateCourse: FC = () => {
 	const {
 		title,
@@ -34,23 +38,48 @@ const CreateCourse: FC = () => {
 		validationSchema
 	);
 	const navigate = useNavigate();
-	const author = useAppSelector((state) => state.authors);
+	const dispatch = useAppDispatch();
+
+	const [chosenAuthors, setchosenAuthors] = useState<AuthorType[]>([]);
+
+	const choseAuthor = (author: AuthorType) => {
+		// Check if the author is already in the chosenAuthors array
+		const isAuthorAlreadyChosen = chosenAuthors.some(
+			(chosenAuthor) => chosenAuthor.id === author.id
+		);
+
+		if (!isAuthorAlreadyChosen) {
+			// If the author is not already chosen, add it to the chosenAuthors array
+			const updatedChosenAuthors = [...chosenAuthors, author];
+			setchosenAuthors(() => updatedChosenAuthors);
+		}
+	};
+
+	const deleteAuthor = (author: AuthorType) => {
+		// Filter out the selected author from chosenAuthors array
+		const updatedChosenAuthors = chosenAuthors.filter(
+			(chosenAuthor) => chosenAuthor.id !== author.id
+		);
+		setchosenAuthors(() => updatedChosenAuthors);
+	};
+
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const isValid = await validateForm(); // Validate the form
 		if (isValid) {
 			const newCourseId = uuidv4();
 			const creationDate = new Date().toLocaleDateString();
-			//const authors = chosenAuthors?.map((author) => author.id);
+			const AuthorsIds = chosenAuthors.map((author) => author.id);
 			const newCourse = {
 				id: newCourseId,
 				title,
 				description,
 				duration,
 				creationDate,
-				//authors,
+				authors: AuthorsIds,
 			};
 
+			dispatch(addNewCourseAction(newCourse));
 			navigate('/courses');
 
 			resetForm();
@@ -77,7 +106,11 @@ const CreateCourse: FC = () => {
 						errors={errors}
 					/>
 				</div>
-				<Authors />
+				<Authors
+					chosenAuthors={chosenAuthors}
+					deleteAuthor={deleteAuthor}
+					choseAuthor={choseAuthor}
+				/>
 			</div>
 		</form>
 	);

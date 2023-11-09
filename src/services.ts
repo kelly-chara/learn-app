@@ -9,99 +9,68 @@ const CoursesApi = axios.create({
 });
 
 // user services
-export const CreateUser = async (newUser: User) => {
-	try {
-		const response = await CoursesApi.post('/register', newUser);
-		const { successful } = response.data;
+export const createUser = async (newUser: User) => {
+	const response = await CoursesApi.post('/register', newUser);
+	const data = response.data;
 
-		return successful;
-	} catch (error) {
-		alert('Error: ' + error.response.data.errors);
-	}
+	return data;
 };
 
-export const LogUser = async (newUser: logindata): Promise<apiResponse> => {
-	try {
-		const response = await CoursesApi.post('/login', newUser);
-		const { successful, result, user } = response.data;
+export const logUser = async (newUser: logindata): Promise<apiResponse> => {
+	const response = await CoursesApi.post('/login', newUser);
+	const data = response.data;
 
-		return { successful, result, user };
-	} catch (error) {
-		alert('Error: ' + error.response.data.errors);
-	}
+	return data;
 };
 
-export const LogoutUser = async (token: string): Promise<apiResponse> => {
-	try {
-		// Create an AxiosRequestConfig object with headers containing the token
-		const config: AxiosRequestConfig = {
-			headers: {
-				Authorization: token,
-			},
-		};
+export const logoutUser = async (token: string): Promise<apiResponse> => {
+	// Create an AxiosRequestConfig object with headers containing the token
+	const config: AxiosRequestConfig = {
+		headers: {
+			Authorization: token,
+		},
+	};
 
-		// Make the HTTP request with the updated configuration
-		const response = await CoursesApi.delete('/logout', config);
+	// Make the HTTP request with the updated configuration
+	const response = await CoursesApi.delete('/logout', config);
 
-		// Extract data from the response
-		const { successful } = response.data;
+	// Extract data from the response
+	const data = response.data;
 
-		return successful;
-	} catch (error) {
-		alert('Error: ' + error.response.data.errors);
-		throw error;
-	}
+	return data;
 };
 
 // Courses services
 
-export const GetAllCourses = async (): Promise<CourseType[]> => {
-	try {
-		const response = await CoursesApi.get('/courses/all');
-		const { result } = response.data;
+export const getAllCourses = async (): Promise<CourseType[]> => {
+	const response = await CoursesApi.get('/courses/all');
+	const data = response.data;
 
-		return result;
-	} catch (error) {
-		alert('Error: ' + error.response.data.errors);
-	}
+	return data.result;
 };
 
-export const AddNewCourse = async (
-	author: CourseType
+export const addNewCourse = async (
+	course: CourseType
 ): Promise<apiResponse> => {
-	try {
-		const { id, ...newAuthor } = author;
-		const response = await CoursesApi.post('/courses/add', newAuthor);
-		const { successful } = response.data;
-
-		return successful;
-	} catch (error) {
-		alert('Error: ' + error.response.data.errors);
-	}
+	const response = await CoursesApi.post('/courses/add', course);
+	const data = response.data;
+	return data;
 };
 
 // Author services
 
 export const getAllAuthors = async (): Promise<AuthorType[]> => {
-	try {
-		const response = await CoursesApi.get('/authors/all');
-		const { result } = response.data;
+	const response = await CoursesApi.get('/authors/all');
+	const data = response.data;
 
-		return result;
-	} catch (error) {
-		alert('Error: ' + error.response.data.errors);
-	}
+	return data;
 };
 
 export const addNewAuthor = async (
 	authorName: string
 ): Promise<apiResponse> => {
-	try {
-		const response = await CoursesApi.post('/authors/add', authorName);
-		const { successful } = response.data;
+	const response = await CoursesApi.post('/authors/add', authorName);
+	const data = response.data;
 
-		return successful;
-	} catch (error) {
-		alert('Error: ' + error.response.data.errors);
-	}
+	return data;
 };

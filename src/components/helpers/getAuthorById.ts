@@ -5,8 +5,6 @@ export const getAuthorsById = (
 	existingAuthors: AuthorType[]
 ): string[] => {
 	const authors = ids.map((id) => {
-		console.log(id);
-		console.log(existingAuthors);
 		const author = existingAuthors.find((authorType) => authorType.id === id);
 		return author ? author.name : '';
 	});

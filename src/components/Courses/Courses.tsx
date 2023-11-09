@@ -3,21 +3,22 @@ import { CourseCard } from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../common/Button/Button';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { GetAllCourses, getAllAuthors } from 'src/services';
+import { getAllCourses, getAllAuthors } from 'src/services';
 import { saveCoursesAction } from 'src/store/courses/actions';
 import { getAllAuthorsAction } from 'src/store/authors/actions';
-import { RootState } from 'src/types/store/rootTypes';
+import { RootState } from 'src/store';
+import { useAppSelector, useAppDispatch } from 'src/store/hooks';
 const Courses = (): JSX.Element => {
-	const courses = useSelector((state: RootState) => state.courses);
+	const courses = useAppSelector((state: RootState) => state.courses);
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const _courses = await GetAllCourses();
+				const _courses = await getAllCourses();
 				const _authors = await getAllAuthors();
+
 				dispatch(saveCoursesAction(_courses));
 				dispatch(getAllAuthorsAction(_authors));
 			} catch (error) {

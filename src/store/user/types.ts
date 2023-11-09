@@ -6,13 +6,15 @@ export type UserType = {
 	token: string;
 };
 
+export type UserApiResponse = Omit<UserType, 'id'>;
+
 export const enum UserActionTypes {
 	AUTH_USER = 'AUTH_USER',
 	LOGOUT_USER = 'LOGOUT_USER',
 }
 export interface AuthUserAction {
 	type: UserActionTypes.AUTH_USER;
-	payload: UserType;
+	payload: UserApiResponse;
 }
 
 export interface LogoutUserAction {

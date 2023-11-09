@@ -14,7 +14,7 @@ export const userReducer = (state = initCoursesState, action: UserActions) => {
 			return action.payload;
 
 		case UserActionTypes.LOGOUT_USER:
-			return { ...state };
+			return { ...initCoursesState };
 
 		default:
 			return state;

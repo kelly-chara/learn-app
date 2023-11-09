@@ -1,17 +1,27 @@
 import {
 	UserActionTypes,
-	UserType,
+	UserApiResponse,
 	AuthUserAction,
 	LogoutUserAction,
 } from './types';
 
-export const authUser = (user: UserType): AuthUserAction => ({
-	type: UserActionTypes.AUTH_USER,
-	payload: user,
-});
+export const authUserAction = (user: UserApiResponse): AuthUserAction => {
+	// Save the token to local storage
+	localStorage.setItem('token', JSON.stringify(user.token));
 
-export const logoutUserAction = (): LogoutUserAction => ({
-	type: UserActionTypes.LOGOUT_USER,
-});
+	// Return the action object
+	return {
+		type: UserActionTypes.AUTH_USER,
+		payload: user,
+	};
+};
+
+export const logoutUserAction = (): LogoutUserAction => {
+	localStorage.removeItem('token');
+
+	return {
+		type: UserActionTypes.LOGOUT_USER,
+	};
+};
 
 export type UserActions = AuthUserAction | LogoutUserAction;

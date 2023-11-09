@@ -7,9 +7,9 @@ import {
 
 // action creators
 
-export const addNewAuthorAction = (authorName: string): AddNewAuthorAction => ({
+export const addNewAuthorAction = (author: AuthorType): AddNewAuthorAction => ({
 	type: AuthorActionTypes.SAVE_AUTHOR,
-	payload: authorName,
+	payload: author,
 });
 
 export const getAllAuthorsAction = (

@@ -5,7 +5,7 @@ import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Container from './components/common/Container/Container';
-import { GetAllCourses } from './services';
+import { getAllCourses } from './services';
 
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
 CourseInfo;
@@ -15,12 +15,12 @@ function App() {
 	useEffect(() => {
 		// Check if there is a token in localStorage
 		const token = localStorage.getItem('token');
-		GetAllCourses();
+		getAllCourses();
 		// If token is present, redirect to '/courses'
 		if (token) {
 			navigate('/courses');
 		} else {
-			navigate('/courses');
+			navigate('/login');
 		}
 	}, []);
 	return (

@@ -19,7 +19,6 @@ export const CourseCard: FC<CourseCardProps> = ({
 	const allAuthors = useSelector((state: RootState) => state.authors);
 
 	const formatedAuthors = getAuthorsById(authors, allAuthors);
-	console.log(formatedAuthors);
 	const navigate = useNavigate();
 	const goToCourseInfo = () => {
 		navigate(id);

@@ -1,6 +1,16 @@
 import React, { FC } from 'react';
 
-import { ButtonProps } from 'src/types/common/types';
+type ButtonAttributes = Omit<
+	React.ButtonHTMLAttributes<HTMLButtonElement>,
+	'prefix'
+>;
+
+interface ButtonProps extends ButtonAttributes {
+	buttonText: string;
+	className?: string;
+	style?: React.CSSProperties;
+	handleClick?: (() => void) | ((event: React.FormEvent) => Promise<void>);
+}
 
 const Button: FC<ButtonProps> = ({
 	buttonText,

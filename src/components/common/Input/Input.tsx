@@ -1,6 +1,13 @@
 import React, { FC } from 'react';
-import { InputProps } from 'src/types/common/types';
+import { InputCommonProps } from 'src/types/common/types';
 import useErrorVisibility from 'src/components/hooks/useErrorVisibility';
+
+export type InputProps = Omit<
+	React.InputHTMLAttributes<HTMLInputElement>,
+	'prefix'
+> &
+	InputCommonProps;
+
 const Input: FC<InputProps> = ({ labelName, errors, name, ...otherProps }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
 		useErrorVisibility(errors, name);

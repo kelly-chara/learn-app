@@ -1,9 +1,13 @@
 import React, { FC, useContext } from 'react';
 import Button from '../common/Button/Button';
 import Logo from './Components/Logo/Logo';
-import { HeaderProps } from 'src/types/common/types';
 import { CoursesContext } from 'src/context/CourseContext';
 import { useNavigate, Link } from 'react-router-dom';
+
+export interface HeaderProps {
+	userName: string;
+}
+
 const Header: FC<HeaderProps> = () => {
 	const navigate = useNavigate();
 	const { user, token, setLoginToken, setUser } = useContext(CoursesContext);

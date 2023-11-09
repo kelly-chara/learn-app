@@ -1,8 +1,16 @@
 import React, { FC } from 'react';
-import { HeaderFormProps } from 'src/types/common/types';
 import Button from 'src/components/common/Button/Button';
 import Input from 'src/components/common/Input/Input';
 import TextArea from 'src/components/common/Input/TextArea';
+
+export interface HeaderFormProps {
+	title: string;
+	inputChange: (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => void;
+	description: string;
+	errors: { [key: string]: string };
+}
 
 export const FormHeader: FC<HeaderFormProps> = ({
 	title,

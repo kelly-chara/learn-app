@@ -6,9 +6,12 @@ import {
 	getCourseDuration,
 	formatCreationDate,
 } from 'src/components/helpers';
-import { CourseCardProps } from 'src/types/common/types';
-import { useSelector, useDispatch } from 'react-redux';
+import { Course } from 'src/types/common/types';
+import { useSelector } from 'react-redux';
 import { RootState } from 'src/types/store/rootTypes';
+export interface CourseCardProps {
+	course: Course;
+}
 
 export const CourseCard: FC<CourseCardProps> = ({
 	course: { authors, title, description, duration, creationDate, id },

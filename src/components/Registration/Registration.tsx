@@ -4,6 +4,7 @@ import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { createUser } from 'src/ApiRequests/userCreation';
 import FormTemplate from '../common/Templates/Form';
 const validationSchema = Yup.object().shape({
 	name: Yup.string()
@@ -42,15 +43,13 @@ const Registration: FC = () => {
 				email,
 			};
 
-			//const userWasCreated = CreateUser(newUser);
-			const userWasCreated = true;
-
-			if (userWasCreated) {
+			try {
+				await createUser(newUser);
 				resetForm();
 				navigate('/login', { replace: true });
+			} catch (error) {
+				console.log(error);
 			}
-		} else {
-			console.log(errors);
 		}
 	};
 	return (

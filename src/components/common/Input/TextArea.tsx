@@ -1,6 +1,14 @@
 import React, { FC } from 'react';
-import { TextareaProps } from 'src/types/common/types';
 import useErrorVisibility from 'src/components/hooks/useErrorVisibility';
+import { InputCommonProps } from 'src/types/common/types';
+// Textarea component props
+
+type TextareaProps = Omit<
+	React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+	'prefix'
+> &
+	InputCommonProps;
+
 const TextArea: FC<TextareaProps> = ({
 	labelName,
 	name,

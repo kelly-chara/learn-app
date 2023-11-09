@@ -12,7 +12,7 @@ export const addNewCourseAction = (courseData: CourseType): AddNewCourse => ({
 	type: CoursesActionTypes.ADD_COURSE,
 	payload: courseData,
 });
-export const saveNewCourseAction = (courseData: CourseType[]): SaveCourses => ({
+export const saveCoursesAction = (courseData: CourseType[]): SaveCourses => ({
 	type: CoursesActionTypes.SAVE_COURSES,
 	payload: courseData,
 });

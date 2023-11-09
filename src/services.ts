@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { logindata, apiResponse } from './types/services/servicesTypes';
 import { User } from 'src/types/common/types';
 import { CourseType } from 'src/store/courses/types';
+import { AuthorType } from './store/authors/types';
 
 const CoursesApi = axios.create({
 	baseURL: 'http://localhost:4000',
@@ -30,9 +31,31 @@ export const LogUser = async (newUser: logindata): Promise<apiResponse> => {
 	}
 };
 
+export const LogoutUser = async (token: string): Promise<apiResponse> => {
+	try {
+		// Create an AxiosRequestConfig object with headers containing the token
+		const config: AxiosRequestConfig = {
+			headers: {
+				Authorization: token,
+			},
+		};
+
+		// Make the HTTP request with the updated configuration
+		const response = await CoursesApi.delete('/logout', config);
+
+		// Extract data from the response
+		const { successful } = response.data;
+
+		return successful;
+	} catch (error) {
+		alert('Error: ' + error.response.data.errors);
+		throw error;
+	}
+};
+
 // Courses services
 
-export const GetAllCourses = async (): Promise<apiResponse> => {
+export const GetAllCourses = async (): Promise<CourseType[]> => {
 	try {
 		const response = await CoursesApi.get('/courses/all');
 		const { result } = response.data;
@@ -59,7 +82,7 @@ export const AddNewCourse = async (
 
 // Author services
 
-export const getAllAuthors = async (): Promise<apiResponse> => {
+export const getAllAuthors = async (): Promise<AuthorType[]> => {
 	try {
 		const response = await CoursesApi.get('/authors/all');
 		const { result } = response.data;

@@ -1,13 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { CourseCard } from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../common/Button/Button';
-import { CoursesContext } from 'src/context/CourseContext';
 import { useNavigate } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { GetAllCourses, getAllAuthors } from 'src/services';
+import { saveCoursesAction } from 'src/store/courses/actions';
+import { getAllAuthorsAction } from 'src/store/authors/actions';
+import { RootState } from 'src/types/store/rootTypes';
 const Courses = (): JSX.Element => {
-	const { courses } = useContext(CoursesContext);
+	const courses = useSelector((state: RootState) => state.courses);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const _courses = await GetAllCourses();
+				const _authors = await getAllAuthors();
+				dispatch(saveCoursesAction(_courses));
+				dispatch(getAllAuthorsAction(_authors));
+			} catch (error) {
+				console.error('Error fetching courses:', error);
+			}
+		};
+
+		fetchData();
+	}, [dispatch]);
 
 	return (
 		<>

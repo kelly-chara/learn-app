@@ -7,11 +7,16 @@ import {
 	formatCreationDate,
 } from 'src/components/helpers';
 import { CourseCardProps } from 'src/types/common/types';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/types/store/rootTypes';
 
 export const CourseCard: FC<CourseCardProps> = ({
 	course: { authors, title, description, duration, creationDate, id },
 }) => {
-	const formatedAuthors = authors ? getAuthorsById(authors) : 'None';
+	const allAuthors = useSelector((state: RootState) => state.authors);
+
+	const formatedAuthors = getAuthorsById(authors, allAuthors);
+	console.log(formatedAuthors);
 	const navigate = useNavigate();
 	const goToCourseInfo = () => {
 		navigate(id);
@@ -26,7 +31,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 			<div className='flex flex-col text-center sm:text-justify justify-between basis-full sm:basis-4/12 p-2 gap-4'>
 				<div className='flex flex-col gap-2 justify-center p-2'>
 					<p className='font-bold'>
-						Authors: <span>{formatedAuthors}</span>
+						Authors: <span>{formatedAuthors.join(', ')}</span>
 					</p>
 					<p className='font-bold'>
 						Duration: <span>{getCourseDuration(duration)} hours</span>

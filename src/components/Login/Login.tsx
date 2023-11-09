@@ -4,7 +4,6 @@ import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { LogUser } from 'src/Axios Request/userCreation';
 import FormTemplate from '../common/Templates/Form';
 import { CoursesContext } from 'src/context/CourseContext';
 
@@ -33,7 +32,7 @@ const Login: FC = () => {
 				email,
 			};
 
-			const { successful, result, user } = await LogUser(userData);
+			/*const { successful, result, user } = await LogUser(userData);
 
 			if (successful) {
 				resetForm();
@@ -41,7 +40,7 @@ const Login: FC = () => {
 				console.log(user);
 				setUser(user);
 				navigate('/courses', { replace: true });
-			}
+			}*/
 			resetForm();
 		} else {
 			console.log(errors);

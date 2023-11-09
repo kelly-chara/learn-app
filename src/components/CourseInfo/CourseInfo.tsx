@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Button from '../common/Button/Button';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
 	formatCreationDate,
@@ -8,12 +9,15 @@ import {
 	getAuthorsById,
 	getCourseById,
 } from '../helpers';
+import { RootState } from 'src/types/store/rootTypes';
 
 export const CourseInfo: FC = () => {
 	const { courseId } = useParams();
 	const course = getCourseById(courseId);
+	const authorsState = useSelector((state: RootState) => state.authors);
+
 	const formatedAuthors = course.authors
-		? getAuthorsById(course.authors)
+		? getAuthorsById(course.authors, authorsState)
 		: 'None';
 
 	const navigate = useNavigate();

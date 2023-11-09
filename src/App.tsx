@@ -20,7 +20,7 @@ function App() {
 		if (token) {
 			navigate('/courses');
 		} else {
-			navigate('/login');
+			navigate('/courses');
 		}
 	}, []);
 	return (

@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './components/Header/Header';
+import Courses from './components/Courses/Courses';
+import CreateCourse from './components/CreateCourse/CreateCourse';
+import { CoursesProvider } from './context/CourseProvider';
+import Button from './components/common/Button/Button';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [showCreateCourses, setShowCreateCourses] = useState(false);
+
+	const changeView = () => {
+		setShowCreateCourses((showCreateCourses) => !showCreateCourses);
+	};
+
+	return (
+		<CoursesProvider>
+			<div className='container'>
+				<Header userName='Kelly' />
+
+				<div className='w-full h-full p-12'>
+					{showCreateCourses ? (
+						<>
+							<Button buttonText=' < ' handleClick={changeView} />
+							<CreateCourse />
+						</>
+					) : (
+						<Courses toggleView={changeView} />
+					)}
+				</div>
+			</div>
+		</CoursesProvider>
+	);
 }
 
 export default App;

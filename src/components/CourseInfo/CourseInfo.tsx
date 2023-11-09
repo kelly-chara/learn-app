@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 import Button from '../common/Button/Button';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-
 import {
 	formatCreationDate,
 	getCourseDuration,
 	getAuthorsById,
 	getCourseById,
 } from '../helpers';
-import { RootState } from 'src/types/store/rootTypes';
+import { useAppSelector } from 'src/store/hooks';
 
 export const CourseInfo: FC = () => {
+	const authorsState = useAppSelector((state) => state.authors);
+	const coursesState = useAppSelector((state) => state.courses);
+
 	const { courseId } = useParams();
-	const course = getCourseById(courseId);
-	const authorsState = useSelector((state: RootState) => state.authors);
+	const course = getCourseById(courseId, coursesState);
 
 	const formatedAuthors = course.authors
 		? getAuthorsById(course.authors, authorsState)

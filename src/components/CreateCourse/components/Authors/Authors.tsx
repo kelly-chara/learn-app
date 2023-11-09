@@ -1,13 +1,9 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import AuthorItem from '../AuthorItem/AuthorItem';
-import { CoursesContext } from 'src/context/CourseContext';
 import { Author } from 'src/types/common/types';
-
+import { useAppSelector } from 'src/store/hooks';
 export const Authors: FC = () => {
-	const { authors, chosenAuthors, setChosenAuthors } =
-		useContext(CoursesContext);
-
-	const choseAuthor = (author: Author) => {
+	/*const choseAuthor = (author: Author) => {
 		// Check if the author is already in the chosenAuthors array
 		const isAuthorAlreadyChosen = chosenAuthors.some(
 			(chosenAuthor) => chosenAuthor.id === author.id
@@ -25,8 +21,10 @@ export const Authors: FC = () => {
 		const updatedChosenAuthors = chosenAuthors.filter(
 			(chosenAuthor) => chosenAuthor.id !== author.id
 		);
-		setChosenAuthors(updatedChosenAuthors);
-	};
+		setChosenAuthors(updatedChosenAuthors);*/
+
+	const authors = useAppSelector((state) => state.authors);
+
 	return (
 		<div className='flex flex-col sm:justify-center basis-full sm:basis-6/12 text-center sm:p-6'>
 			<div>
@@ -37,8 +35,8 @@ export const Authors: FC = () => {
 							isInChosenList={false}
 							key={author.id}
 							author={author}
-							handleDeletion={deleteAuthor}
-							addAuthor={choseAuthor}
+							//handleDeletion={deleteAuthor}
+							//addAuthor={choseAuthor}
 						/>
 					))}
 				</div>
@@ -46,7 +44,7 @@ export const Authors: FC = () => {
 			<div>
 				<h4 className='sub-header'>Course Authors</h4>
 				<div>
-					{chosenAuthors &&
+					{/*chosenAuthors &&
 						chosenAuthors.map((author) => (
 							<AuthorItem
 								isInChosenList={true}
@@ -55,7 +53,7 @@ export const Authors: FC = () => {
 								handleDeletion={deleteAuthor}
 								addAuthor={choseAuthor}
 							/>
-						))}
+						))*/}
 				</div>
 			</div>
 		</div>

@@ -3,6 +3,7 @@ import { logindata, apiResponse } from './types/services/servicesTypes';
 import { User } from 'src/types/common/types';
 import { CourseType } from 'src/store/courses/types';
 import { AuthorType } from './store/authors/types';
+import { config } from 'process';
 
 const CoursesApi = axios.create({
 	baseURL: 'http://localhost:4000',
@@ -63,14 +64,27 @@ export const getAllAuthors = async (): Promise<AuthorType[]> => {
 	const response = await CoursesApi.get('/authors/all');
 	const data = response.data;
 
-	return data;
+	return data.result;
 };
 
+/*
 export const addNewAuthor = async (
+	token: string,
 	authorName: string
-): Promise<apiResponse> => {
-	const response = await CoursesApi.post('/authors/add', authorName);
+): Promise<AuthorType> => {
+	const config: AxiosRequestConfig = {
+		headers: {
+			Authorization: token,
+		},
+		params: {
+			name: authorName,
+		},
+	};
+
+	const response = await CoursesApi.post('/authors/add', config);
+
 	const data = response.data;
 
-	return data;
+	return data.result;
 };
+*/

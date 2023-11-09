@@ -30,7 +30,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 
 				<p className='text-justify'>{description}</p>
 			</div>
-			<div className='flex flex-col text-center sm:text-justify justify-between basis-full sm:basis-4/12 p-2 gap-4'>
+			<div className='flex flex-col text-center sm:text-justify justify-between  p-2 gap-4'>
 				<div className='flex flex-col gap-2 justify-center p-2'>
 					<p className='font-bold'>
 						Authors: <span>{formatedAuthors.join(', ')}</span>
@@ -43,8 +43,17 @@ export const CourseCard: FC<CourseCardProps> = ({
 					</p>
 				</div>
 
-				<div className='flex justify-center items-center'>
-					<Button buttonText='Show Course' handleClick={goToCourseInfo} />
+				<div className='flex flex-row gap-2'>
+					<Button buttonText='🖉' />
+					<Button buttonText='🗑️' />
+
+					<div>
+						<Button
+							buttonText='Show Course'
+							className='flex-nowrap'
+							handleClick={goToCourseInfo}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

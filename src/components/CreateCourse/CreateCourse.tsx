@@ -1,11 +1,11 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { Authors } from './components/Authors/Authors';
 import { FormHeader, AuthorForm, FormFooter } from './components/Form';
 import { useForm } from '../hooks/useForm';
 import { v4 as uuidv4 } from 'uuid';
 import * as Yup from 'yup';
-import { CoursesContext } from 'src/context/CourseContext';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
 		.min(2, 'Too Short!')
@@ -34,41 +34,23 @@ const CreateCourse: FC = () => {
 		validationSchema
 	);
 	const navigate = useNavigate();
-
-	const { chosenAuthors, setCourses, setChosenAuthors } =
-		useContext(CoursesContext);
+	const author = useAppSelector((state) => state.authors);
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const isValid = await validateForm(); // Validate the form
 		if (isValid) {
 			const newCourseId = uuidv4();
 			const creationDate = new Date().toLocaleDateString();
-			const authors = chosenAuthors?.map((author) => author.id);
+			//const authors = chosenAuthors?.map((author) => author.id);
 			const newCourse = {
 				id: newCourseId,
 				title,
 				description,
 				duration,
 				creationDate,
-				authors,
+				//authors,
 			};
 
-			const existingCourses = JSON.parse(
-				localStorage.getItem('courses') || '[]'
-			);
-
-			// Add the new course
-			const updatedCourses = [...existingCourses, newCourse];
-
-			// Save the updated courses back to localStorage
-			localStorage.setItem('courses', JSON.stringify(updatedCourses));
-
-			// Reset the chosenAuthors
-			localStorage.removeItem('chosenAuthors');
-
-			// Update the courses in context
-			setCourses(updatedCourses);
-			setChosenAuthors([]);
 			navigate('/courses');
 
 			resetForm();

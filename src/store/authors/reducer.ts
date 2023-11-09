@@ -5,7 +5,7 @@ import { AuthorsActions } from './actions';
 export const authorsReducer = (
 	state = initAuthorsState,
 	action: AuthorsActions
-) => {
+): AuthorType[] => {
 	switch (action.type) {
 		case AuthorActionTypes.SAVE_AUTHOR:
 			return [...state, action.payload];

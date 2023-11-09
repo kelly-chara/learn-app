@@ -11,7 +11,7 @@ export const enum AuthorActionTypes {
 // Action interfaces
 export interface AddNewAuthorAction {
 	type: AuthorActionTypes.SAVE_AUTHOR;
-	payload: string;
+	payload: AuthorType;
 }
 
 export interface GetAllAuthorsAction {

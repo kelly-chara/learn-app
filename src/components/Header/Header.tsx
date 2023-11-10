@@ -32,7 +32,7 @@ const Header: FC<HeaderProps> = () => {
 
 			{token && (
 				<div className='centered-row gap-4 text-normal'>
-					<p>{name}</p>
+					<p>{name ? name : 'ADMIN'}</p>
 					<Button buttonText='Logout' handleClick={logoutHandler} />
 				</div>
 			)}

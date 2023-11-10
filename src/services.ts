@@ -71,7 +71,6 @@ export const getAllAuthors = async (): Promise<AuthorType[]> => {
 	return data.result;
 };
 
-/*
 export const addNewAuthor = async (
 	token: string,
 	authorName: string
@@ -80,15 +79,14 @@ export const addNewAuthor = async (
 		headers: {
 			Authorization: token,
 		},
-		params: {
-			name: authorName,
-		},
+	};
+	const body = {
+		name: authorName,
 	};
 
-	const response = await CoursesApi.post('/authors/add', config);
+	const response = await CoursesApi.post('/authors/add', body, config);
 
 	const data = response.data;
 
 	return data.result;
 };
-*/

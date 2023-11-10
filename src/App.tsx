@@ -1,28 +1,29 @@
 import React, { useEffect } from 'react';
 import Courses from './components/Courses/Courses';
-import CreateCourse from './components/CreateCourse/CreateCourse';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
-import { Route, Routes, useNavigate } from 'react-router-dom';
 import Container from './components/common/Container/Container';
+import CourseForm from './components/CreateCourse/CourseForm';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { getAllCourses, getAllAuthors } from 'src/services';
 import { saveCoursesAction } from 'src/store/courses/actions';
 import { getAllAuthorsAction } from 'src/store/authors/actions';
-import { useAppDispatch } from 'src/store/hooks';
-
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { getUserSelector } from './store/selectors';
+import { getAllAuthorsThunk } from './store/authors/thunk';
+import { getAllCoursesThunk } from './store/courses/thunk';
 function App() {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
+	const { name } = useAppSelector(getUserSelector);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const _courses = await getAllCourses();
-				const _authors = await getAllAuthors();
-
-				dispatch(saveCoursesAction(_courses));
-				dispatch(getAllAuthorsAction(_authors));
+				await getAllCoursesThunk()(dispatch);
+				await getAllAuthorsThunk()(dispatch);
 			} catch (error) {
 				console.error('Error fetching courses:', error);
 			}
@@ -45,7 +46,22 @@ function App() {
 	return (
 		<Routes>
 			<Route path='/' element={<Container />}>
-				<Route path='/courses/add' element={<CreateCourse />} />
+				<Route
+					path='/courses/update/:courseId'
+					element={
+						<PrivateRoute name={name}>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path='/courses/add'
+					element={
+						<PrivateRoute name={name}>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
 				<Route path='/registration' element={<Registration />} />

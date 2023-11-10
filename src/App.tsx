@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Courses from './components/Courses/Courses';
-import CreateCourse from './components/CreateCourse/CreateCourse';
+import CourseForm from './components/CreateCourse/CourseForm';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { getAllCourses, getAllAuthors } from 'src/services';
 import { saveCoursesAction } from 'src/store/courses/actions';
 import { getAllAuthorsAction } from 'src/store/authors/actions';
 import { useAppDispatch } from 'src/store/hooks';
-
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 function App() {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -45,7 +45,22 @@ function App() {
 	return (
 		<Routes>
 			<Route path='/' element={<Container />}>
-				<Route path='/courses/add' element={<CreateCourse />} />
+				<Route
+					path='/courses/update/:courseId'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path='/courses/add'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
 				<Route path='/registration' element={<Registration />} />

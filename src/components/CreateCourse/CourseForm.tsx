@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
 	duration: Yup.number().required('Field is required'),
 });
 
-const CreateCourse: FC = () => {
+const CourseForm: FC = () => {
 	const {
 		title,
 		description,
@@ -115,4 +115,4 @@ const CreateCourse: FC = () => {
 		</form>
 	);
 };
-export default CreateCourse;
+export default CourseForm;

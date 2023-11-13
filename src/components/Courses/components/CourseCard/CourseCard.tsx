@@ -20,8 +20,10 @@ export const CourseCard: FC<CourseCardProps> = ({
 }) => {
 	const allAuthors = useAppSelector(getAuthorsSelector);
 	const dispatch = useAppDispatch();
-	const formatedAuthors = getAuthorsById(authors, allAuthors);
 	const navigate = useNavigate();
+	const formattedAuthors =
+		authors && allAuthors ? getAuthorsById(authors, allAuthors).join(', ') : [];
+
 	const goToCourseInfo = () => {
 		navigate(id);
 	};
@@ -39,7 +41,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 			<div className='flex flex-col text-center sm:text-justify justify-between  p-2 gap-4'>
 				<div className='flex flex-col gap-2 justify-center p-2'>
 					<p className='font-bold'>
-						Authors: <span>{formatedAuthors.join(', ')}</span>
+						Authors: <span>{formattedAuthors}</span>
 					</p>
 					<p className='font-bold'>
 						Duration: <span>{getCourseDuration(duration)} hours</span>

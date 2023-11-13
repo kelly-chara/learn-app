@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import Input from 'src/components/common/Input/Input';
 import Button from 'src/components/common/Button/Button';
-import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'src/components/hooks/useForm';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { addNewAuthorAction } from 'src/store/authors/actions';
-import { saveNewAuthorThunk } from 'src/store/authors/thunk';
+import { addNewAuthorThunk } from 'src/store/authors/thunk';
 
 import * as Yup from 'yup';
 import { getUserSelector } from 'src/store/selectors';
@@ -25,13 +23,12 @@ export const AuthorForm: FC = () => {
 		validationSchema
 	);
 	const dispatch = useAppDispatch();
-	const { token } = useAppSelector(getUserSelector);
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const isValid = await validateForm(); // Validate the form
 
 		if (isValid) {
-			await saveNewAuthorThunk(token, authorName)(dispatch);
+			await dispatch(addNewAuthorThunk(authorName));
 			resetForm();
 		} else {
 			console.log(errors);

@@ -1,22 +1,37 @@
-import { CoursesActionTypes, CourseType } from './types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { CourseType } from './types';
 const initCoursesState = [] as CourseType[];
-import { CoursesAction } from './actions';
+import { fetchAllCourses, addNewCourseThunk } from './thunk';
 
-export const coursesReducer = (
-	state = initCoursesState,
-	action: CoursesAction
-) => {
-	switch (action.type) {
-		case CoursesActionTypes.SAVE_COURSES:
+const coursesSlice = createSlice({
+	name: 'courses',
+	initialState: initCoursesState,
+	reducers: {
+		saveCourses: (_, action: PayloadAction<CourseType[]>) => {
 			return action.payload;
-
-		case CoursesActionTypes.ADD_COURSE:
+		},
+		addNewCourse: (state, action: PayloadAction<CourseType>) => {
 			return [...state, action.payload];
+		},
+		deleteCourse: (state, action: PayloadAction<CourseType>) => {
+			return [...state, action.payload];
+		},
+	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(
+				fetchAllCourses.fulfilled,
+				(_, action: PayloadAction<CourseType[]>) => {
+					return action.payload; // Make sure to return a new array
+				}
+			)
+			.addCase(
+				addNewCourseThunk.fulfilled,
+				(state, action: PayloadAction<CourseType>) => {
+					return [...state, action.payload]; // Make sure to return a new array
+				}
+			);
+	},
+});
 
-		case CoursesActionTypes.DELETE_COURSE:
-			return state.filter((course) => course.id !== action.payload);
-
-		default:
-			return state;
-	}
-};
+export default coursesSlice.reducer;

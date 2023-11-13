@@ -2,12 +2,11 @@ import React, { FC, useState } from 'react';
 import { Authors } from './components/Authors/Authors';
 import { FormHeader, AuthorForm, FormFooter } from './components/Form';
 import { useForm } from '../hooks/useForm';
-import { v4 as uuidv4 } from 'uuid';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'src/store/hooks';
-import { addNewCourseAction } from 'src/store/courses/actions';
 import { AuthorType } from 'src/store/authors/types';
+import { addNewCourseThunk } from 'src/store/courses/thunk';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
@@ -39,7 +38,6 @@ const CourseForm: FC = () => {
 	);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-
 	const [chosenAuthors, setchosenAuthors] = useState<AuthorType[]>([]);
 
 	const choseAuthor = (author: AuthorType) => {
@@ -67,22 +65,23 @@ const CourseForm: FC = () => {
 		event.preventDefault();
 		const isValid = await validateForm(); // Validate the form
 		if (isValid) {
-			const newCourseId = uuidv4();
 			const creationDate = new Date().toLocaleDateString();
 			const AuthorsIds = chosenAuthors.map((author) => author.id);
 			const newCourse = {
-				id: newCourseId,
 				title,
 				description,
-				duration,
+				duration: Number(duration),
 				creationDate,
 				authors: AuthorsIds,
 			};
 
-			dispatch(addNewCourseAction(newCourse));
-			navigate('/courses');
-
-			resetForm();
+			try {
+				dispatch(addNewCourseThunk(newCourse));
+				resetForm();
+				navigate('/courses');
+			} catch (error) {
+				console.log(error);
+			}
 		} else {
 			console.log(errors);
 		}

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { logindata, apiResponse } from './types/services/servicesTypes';
 import { User } from 'src/types/common/types';
-import { CourseType } from 'src/store/courses/types';
+import { CourseType, CourseTypeApiRequest } from 'src/store/courses/types';
 import { AuthorType } from './store/authors/types';
 
 const CoursesApi = axios.create({
@@ -50,9 +50,15 @@ export const getAllCourses = async (): Promise<CourseType[]> => {
 };
 
 export const addNewCourse = async (
-	course: CourseType
-): Promise<apiResponse> => {
-	const response = await CoursesApi.post('/courses/add', course);
+	course: CourseTypeApiRequest,
+	token: string
+): Promise<CourseType> => {
+	const config: AxiosRequestConfig = {
+		headers: {
+			Authorization: token,
+		},
+	};
+	const response = await CoursesApi.post('/courses/add', course, config);
 	const data = response.data;
 	return data;
 };

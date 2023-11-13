@@ -7,6 +7,13 @@ export type CourseType = {
 	authors: string[];
 };
 
+export type CourseTypeApiRequest = {
+	title: string;
+	description: string;
+	creationDate: string;
+	duration: number;
+	authors: string[];
+};
 export const enum CoursesActionTypes {
 	SAVE_COURSES = 'SAVE_COURSES',
 	ADD_COURSE = 'ADD_COURSE',

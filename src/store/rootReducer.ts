@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { coursesReducer } from './courses/reducer';
+import coursesReducer from './courses/reducer';
 import { userReducer } from './user/reducer';
-import { authorsReducer } from './authors/reducer';
+import authorsReducer from './authors/reducer';
 
 export const rootReducer = combineReducers({
 	courses: coursesReducer,

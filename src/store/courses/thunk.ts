@@ -1,11 +1,35 @@
-import { Dispatch } from 'redux';
-import { getAllCourses } from 'src/services';
-import { saveCoursesAction } from './actions';
+import { getAllCourses, addNewCourse } from 'src/services';
+import { saveCoursesAction, addNewCourseAction } from './actions';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { CourseType, CourseTypeApiRequest } from './types';
 
-export const getAllCoursesThunk = () => {
-	return async function (dispatch: Dispatch) {
-		const courses = await getAllCourses();
+export const fetchAllCourses = createAsyncThunk<CourseType[]>(
+	'courses/fetchAllCourses',
+	async (_, { dispatch }) => {
+		try {
+			const courses = await getAllCourses();
+			dispatch(saveCoursesAction(courses));
+			return courses;
+		} catch (error) {
+			console.error('Error fetching courses:', error);
+			throw error; // Rethrow the error to mark the thunk as rejected
+		}
+	}
+);
 
-		dispatch(saveCoursesAction(courses));
-	};
-};
+export const addNewCourseThunk = createAsyncThunk(
+	'courses/addNewCourse',
+	async (newCourse: CourseTypeApiRequest, thunkAPI) => {
+		try {
+			// Perform the API call
+			const token =
+				localStorage.getItem('token').replace(/^"(.*)"$/, '$1') || '';
+			const course = await addNewCourse(newCourse, token);
+			thunkAPI.dispatch(addNewCourseAction(course));
+			return course;
+		} catch (error) {
+			console.error('Error adding a new course:', error);
+			throw error; // Rethrow the error to mark the thunk as rejected
+		}
+	}
+);

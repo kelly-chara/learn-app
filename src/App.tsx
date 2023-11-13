@@ -6,31 +6,26 @@ import Container from './components/common/Container/Container';
 import CourseForm from './components/CreateCourse/CourseForm';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
-import { getAllCourses, getAllAuthors } from 'src/services';
-import { saveCoursesAction } from 'src/store/courses/actions';
-import { getAllAuthorsAction } from 'src/store/authors/actions';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { useAppDispatch } from 'src/store/hooks';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
-import { getUserSelector } from './store/selectors';
-import { getAllAuthorsThunk } from './store/authors/thunk';
-import { getAllCoursesThunk } from './store/courses/thunk';
+import { fetchAllCourses } from './store/courses/thunk';
+import { fetchAllAuthors } from './store/authors/thunk';
 function App() {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	const { name } = useAppSelector(getUserSelector);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				await getAllCoursesThunk()(dispatch);
-				await getAllAuthorsThunk()(dispatch);
+				await dispatch(fetchAllCourses());
+				await dispatch(fetchAllAuthors());
 			} catch (error) {
 				console.error('Error fetching courses:', error);
 			}
 		};
 
 		fetchData();
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		// Check if there is a token in localStorage
@@ -49,7 +44,7 @@ function App() {
 				<Route
 					path='/courses/update/:courseId'
 					element={
-						<PrivateRoute name={name}>
+						<PrivateRoute name={null}>
 							<CourseForm />
 						</PrivateRoute>
 					}
@@ -57,7 +52,7 @@ function App() {
 				<Route
 					path='/courses/add'
 					element={
-						<PrivateRoute name={name}>
+						<PrivateRoute name={null}>
 							<CourseForm />
 						</PrivateRoute>
 					}

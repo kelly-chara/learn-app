@@ -2,11 +2,10 @@ import React, { FC } from 'react';
 import Input from 'src/components/common/Input/Input';
 import Button from 'src/components/common/Button/Button';
 import { useForm } from 'src/components/hooks/useForm';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { useAppDispatch } from 'src/store/hooks';
 import { addNewAuthorThunk } from 'src/store/authors/thunk';
 
 import * as Yup from 'yup';
-import { getUserSelector } from 'src/store/selectors';
 
 const validationSchema = Yup.object().shape({
 	authorName: Yup.string()

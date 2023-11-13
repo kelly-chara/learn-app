@@ -25,7 +25,7 @@ function App() {
 		};
 
 		fetchData();
-	}, [dispatch]);
+	}, []);
 
 	useEffect(() => {
 		// Check if there is a token in localStorage

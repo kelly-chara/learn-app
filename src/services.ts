@@ -63,8 +63,16 @@ export const addNewCourse = async (
 	return data;
 };
 
-export const deleteCourse = async (courseId: string): Promise<apiResponse> => {
-	const response = await CoursesApi.delete(`/courses/${courseId}`);
+export const deleteCourse = async (
+	courseId: string,
+	token: string
+): Promise<string> => {
+	const config: AxiosRequestConfig = {
+		headers: {
+			Authorization: token,
+		},
+	};
+	const response = await CoursesApi.delete(`/courses/${courseId}`, config);
 	const data = response.data;
 	return data;
 };

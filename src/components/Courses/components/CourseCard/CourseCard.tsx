@@ -8,8 +8,8 @@ import {
 } from 'src/components/helpers';
 import { Course } from 'src/types/common/types';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { deleteCourseAction } from 'src/store/courses/actions';
 import { getAuthorsSelector } from 'src/store/selectors';
+import { deleteCourseThunk } from 'src/store/courses/thunk';
 
 export interface CourseCardProps {
 	course: Course;
@@ -29,7 +29,11 @@ export const CourseCard: FC<CourseCardProps> = ({
 	};
 
 	const handleCourseDeletion = async () => {
-		dispatch(deleteCourseAction(id));
+		try {
+			await dispatch(deleteCourseThunk(id));
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	return (
 		<div className='sm:centered-row justify-between items-center basis-full gap-8 border'>

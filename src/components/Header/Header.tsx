@@ -14,7 +14,8 @@ export interface HeaderProps {
 const Header: FC<HeaderProps> = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-	const { token, name } = useAppSelector(getUserSelector);
+	const { name } = useAppSelector(getUserSelector);
+	const token = localStorage.getItem('token');
 	const logoutHandler = async () => {
 		try {
 			await logoutUser(token);

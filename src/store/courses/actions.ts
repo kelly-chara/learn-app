@@ -18,9 +18,9 @@ export const saveCoursesAction = (courses: CourseType[]): SaveCourses => ({
 	payload: courses,
 });
 
-export const deleteCourseAction = (id: string): DeleteCourse => ({
+export const deleteCourseAction = (courseId: string): DeleteCourse => ({
 	type: CoursesActionTypes.DELETE_COURSE,
-	payload: id,
+	payload: courseId,
 });
 
 export type CoursesAction = SaveCourses | AddNewCourse | DeleteCourse;

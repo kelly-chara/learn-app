@@ -2,11 +2,10 @@ import React, { FC } from 'react';
 import Button from '../common/Button/Button';
 import Logo from './Components/Logo/Logo';
 import { useNavigate, Link } from 'react-router-dom';
-import { logoutUser } from 'src/services';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { logoutUserAction } from 'src/store/user/actions';
 import { getUserSelector } from 'src/store/selectors';
-
+import { logoutUserThunk } from 'src/store/user/thunk';
+logoutUserThunk;
 export interface HeaderProps {
 	userName: string;
 }
@@ -15,11 +14,12 @@ const Header: FC<HeaderProps> = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const { name } = useAppSelector(getUserSelector);
+
 	const token = localStorage.getItem('token');
+
 	const logoutHandler = async () => {
 		try {
-			await logoutUser(token);
-			dispatch(logoutUserAction());
+			await dispatch(logoutUserThunk());
 			navigate('/login');
 		} catch (error) {
 			console.log(error);

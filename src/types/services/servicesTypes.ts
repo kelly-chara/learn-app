@@ -1,8 +1,8 @@
-export interface logindata {
+export interface Logindata {
 	email: string;
 	password: string;
 }
-export interface apiResponse {
+export interface ApiResponse {
 	successful: string;
 	result: string;
 	user: {

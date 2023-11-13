@@ -6,8 +6,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import FormTemplate from '../common/Templates/Form';
 import { useAppDispatch } from 'src/store/hooks';
-import { authUserAction } from 'src/store/user/actions';
-import { logUser } from 'src/services';
+import { logUserThunk, getCurrentUserThunk } from 'src/store/user/thunk';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string().email().required(),
@@ -36,15 +35,9 @@ const Login: FC = () => {
 			};
 
 			try {
-				const { result, user } = await logUser(userData);
+				await dispatch(logUserThunk(userData));
+				await dispatch(getCurrentUserThunk());
 				resetForm();
-				console.log(result);
-				const authUser = {
-					isAuth: true,
-					token: result,
-					...user,
-				};
-				dispatch(authUserAction(authUser));
 				navigate('/courses', { replace: true });
 			} catch (error) {
 				console.error('Error occurred while logging in:', error);

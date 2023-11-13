@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { logindata, apiResponse } from './types/services/servicesTypes';
+import { Logindata, ApiResponse } from './types/services/servicesTypes';
 import { User } from 'src/types/common/types';
 import { CourseType, CourseTypeApiRequest } from 'src/store/courses/types';
 import { AuthorType } from './store/authors/types';
+import { UserType } from './store/user/types';
 
 const CoursesApi = axios.create({
 	baseURL: 'http://localhost:4000',
@@ -16,14 +17,27 @@ export const createUser = async (newUser: User) => {
 	return data;
 };
 
-export const logUser = async (newUser: logindata): Promise<apiResponse> => {
+export const logUser = async (newUser: Logindata): Promise<string> => {
 	const response = await CoursesApi.post('/login', newUser);
-	const data = response.data;
+	const token = response.data.result;
 
-	return data;
+	return token;
 };
 
-export const logoutUser = async (token: string): Promise<apiResponse> => {
+export const getCurrentUser = async (token: string): Promise<UserType> => {
+	const config: AxiosRequestConfig = {
+		headers: {
+			Authorization: token,
+		},
+	};
+
+	const response = await CoursesApi.get('/users/me', config);
+	const user = response.data.result;
+
+	return user;
+};
+
+export const logoutUser = async (token: string): Promise<ApiResponse> => {
 	// Create an AxiosRequestConfig object with headers containing the token
 	const config: AxiosRequestConfig = {
 		headers: {

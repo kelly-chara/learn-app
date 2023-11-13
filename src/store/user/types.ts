@@ -4,17 +4,22 @@ export type UserType = {
 	name: string;
 	email: string;
 	token: string;
+	role: string;
 };
 
-export type UserApiResponse = Omit<UserType, 'id'>;
+export type UserApiResponse = Omit<UserType, 'id' | 'role'>;
 
 export const enum UserActionTypes {
 	AUTH_USER = 'AUTH_USER',
 	LOGOUT_USER = 'LOGOUT_USER',
+	GET_CURRENT_USER = 'GET_CURRENT_USER',
 }
 export interface AuthUserAction {
 	type: UserActionTypes.AUTH_USER;
-	payload: UserApiResponse;
+}
+export interface GetCurrentUserAction {
+	type: UserActionTypes.GET_CURRENT_USER;
+	payload: UserType;
 }
 
 export interface LogoutUserAction {

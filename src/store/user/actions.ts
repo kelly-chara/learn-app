@@ -1,20 +1,29 @@
+import { type } from 'os';
 import {
 	UserActionTypes,
 	UserApiResponse,
 	AuthUserAction,
 	LogoutUserAction,
+	GetCurrentUserAction,
+	UserType,
 } from './types';
 
-export const authUserAction = (user: UserApiResponse): AuthUserAction => {
+export const authUserAction = (token: string): AuthUserAction => {
 	// Save the token to local storage
-	localStorage.setItem('token', JSON.stringify(user.token));
+	localStorage.setItem('token', JSON.stringify(token));
 
 	// Return the action object
 	return {
 		type: UserActionTypes.AUTH_USER,
-		payload: user,
 	};
 };
+
+export const getCurrentUserUserAction = (
+	user: UserType
+): GetCurrentUserAction => ({
+	type: UserActionTypes.GET_CURRENT_USER,
+	payload: user,
+});
 
 export const logoutUserAction = (): LogoutUserAction => {
 	localStorage.removeItem('token');
@@ -24,4 +33,7 @@ export const logoutUserAction = (): LogoutUserAction => {
 	};
 };
 
-export type UserActions = AuthUserAction | LogoutUserAction;
+export type UserActions =
+	| AuthUserAction
+	| LogoutUserAction
+	| GetCurrentUserAction;

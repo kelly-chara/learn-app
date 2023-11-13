@@ -14,12 +14,12 @@ const Header: FC<HeaderProps> = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const { name } = useAppSelector(getUserSelector);
-
 	const token = localStorage.getItem('token');
 
 	const logoutHandler = async () => {
 		try {
 			await dispatch(logoutUserThunk());
+
 			navigate('/login');
 		} catch (error) {
 			console.log(error);
@@ -33,7 +33,7 @@ const Header: FC<HeaderProps> = () => {
 
 			{token && (
 				<div className='centered-row gap-4 text-normal'>
-					<p>{name ? name : 'ADMIN'}</p>
+					<p>{name && name}</p>
 					<Button buttonText='Logout' handleClick={logoutHandler} />
 				</div>
 			)}

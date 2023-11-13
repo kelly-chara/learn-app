@@ -77,6 +77,20 @@ export const addNewCourse = async (
 	return data;
 };
 
+export const updateCourse = async (
+	course: CourseTypeApiRequest,
+	token: string,
+	courseId: string
+): Promise<CourseType> => {
+	const config: AxiosRequestConfig = {
+		headers: {
+			Authorization: token,
+		},
+	};
+	const response = await CoursesApi.put(`/courses/${courseId}`, course, config);
+	const data = response.data;
+	return data;
+};
 export const deleteCourse = async (
 	courseId: string,
 	token: string

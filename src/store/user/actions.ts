@@ -1,7 +1,5 @@
-import { type } from 'os';
 import {
 	UserActionTypes,
-	UserApiResponse,
 	AuthUserAction,
 	LogoutUserAction,
 	GetCurrentUserAction,

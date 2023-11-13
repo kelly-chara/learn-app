@@ -5,11 +5,11 @@ import { AuthorType } from './types';
 
 export const fetchAllAuthors = createAsyncThunk<AuthorType[]>(
 	'authors/fetchAllAuthors',
-	async (_, { dispatch }) => {
+	async (_, thunkAPI) => {
 		try {
 			const authors = await getAllAuthors();
 
-			dispatch(getAllAuthorsAction(authors));
+			thunkAPI.dispatch(getAllAuthorsAction(authors));
 			return authors;
 		} catch (error) {
 			console.error('Error fetching authors:', error);
@@ -23,7 +23,7 @@ export const addNewAuthorThunk = createAsyncThunk(
 	async (authorName: string, thunkAPI) => {
 		try {
 			const token =
-				localStorage.getItem('token').replace(/^"(.*)"$/, '$1') || '';
+				localStorage.getItem('token')?.replace(/^"(.*)"$/, '$1') || '';
 
 			const author = await addNewAuthor(token, authorName);
 			thunkAPI.dispatch(addNewAuthorAction(author));

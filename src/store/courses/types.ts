@@ -17,12 +17,17 @@ export type CourseTypeApiRequest = {
 export const enum CoursesActionTypes {
 	SAVE_COURSES = 'SAVE_COURSES',
 	ADD_COURSE = 'ADD_COURSE',
+	UPDATE_COURSE = 'UPDATE_COURSE',
 	DELETE_COURSE = 'DELETE_COURSES',
 }
 
 // Action interfaces
 export interface AddNewCourse {
 	type: CoursesActionTypes.ADD_COURSE;
+	payload: CourseType;
+}
+export interface UpdateCourse {
+	type: CoursesActionTypes.UPDATE_COURSE;
 	payload: CourseType;
 }
 

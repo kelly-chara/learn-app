@@ -13,7 +13,7 @@ export const getCurrentUserThunk = createAsyncThunk<UserType>(
 	async (_, { dispatch }) => {
 		try {
 			const token =
-				localStorage.getItem('token').replace(/^"(.*)"$/, '$1') || '';
+				localStorage.getItem('token')?.replace(/^"(.*)"$/, '$1') || '';
 			const user = await getCurrentUser(token);
 			console.log(user, 'the useeeeeeeeeeeeeer');
 			dispatch(getCurrentUserUserAction(user));
@@ -44,7 +44,7 @@ export const logoutUserThunk = createAsyncThunk(
 	async (_, { dispatch }) => {
 		try {
 			const token =
-				localStorage.getItem('token').replace(/^"(.*)"$/, '$1') || '';
+				localStorage.getItem('token')?.replace(/^"(.*)"$/, '$1') || '';
 			const user = await logoutUser(token);
 			dispatch(logoutUserAction());
 			return user;

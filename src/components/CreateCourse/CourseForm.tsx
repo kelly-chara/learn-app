@@ -1,12 +1,15 @@
 import React, { FC, useState } from 'react';
+import * as Yup from 'yup';
 import { Authors } from './components/Authors/Authors';
 import { FormHeader, AuthorForm, FormFooter } from './components/Form';
 import { useForm } from '../hooks/useForm';
-import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'src/store/hooks';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { AuthorType } from 'src/store/authors/types';
-import { addNewCourseThunk } from 'src/store/courses/thunk';
+import { CourseType } from 'src/store/courses/types';
+import { addNewCourseThunk, updateCourseThunk } from 'src/store/courses/thunk';
+import { getAuthorsById, getCourseById } from '../helpers';
+import { getCoursesSelector, getAuthorsSelector } from 'src/store/selectors';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
@@ -19,7 +22,24 @@ const validationSchema = Yup.object().shape({
 	duration: Yup.number().required('Field is required'),
 });
 
-const CourseForm: FC = () => {
+const CourseForm: FC<{ courseData?: CourseType }> = () => {
+	const { courseId } = useParams();
+	const allCourses = useAppSelector(getCoursesSelector);
+	const allAuthors = useAppSelector(getAuthorsSelector);
+	const courseData = getCourseById(courseId, allCourses);
+	const courseAuthors = getAuthorsById(courseData.authors, allAuthors);
+	const initialFormState = courseId
+		? {
+				title: courseData.title,
+				description: courseData.description,
+				duration: courseData.duration,
+		  }
+		: {
+				title: '',
+				description: '',
+				duration: null,
+		  };
+
 	const {
 		title,
 		description,
@@ -28,20 +48,18 @@ const CourseForm: FC = () => {
 		inputChange,
 		resetForm,
 		validateForm,
-	} = useForm(
-		{
-			title: '',
-			description: '',
-			duration: null,
-		},
-		validationSchema
-	);
+	} = useForm(initialFormState, validationSchema);
+
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
+
 	const [chosenAuthors, setchosenAuthors] = useState<AuthorType[]>([]);
 
 	const choseAuthor = (author: AuthorType) => {
 		// Check if the author is already in the chosenAuthors array
+		if (courseId) {
+			setchosenAuthors(courseAuthors);
+		}
 		const isAuthorAlreadyChosen = chosenAuthors.some(
 			(chosenAuthor) => chosenAuthor.id === author.id
 		);
@@ -76,7 +94,14 @@ const CourseForm: FC = () => {
 			};
 
 			try {
-				dispatch(addNewCourseThunk(newCourse));
+				if (courseId) {
+					dispatch(updateCourseThunk({ newCourse, courseId }));
+				} else {
+					// If courseId is not present, it's a new course
+					// Dispatch the addNewCourseThunk action
+					dispatch(addNewCourseThunk(newCourse));
+				}
+
 				resetForm();
 				navigate('/courses');
 			} catch (error) {

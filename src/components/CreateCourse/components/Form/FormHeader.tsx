@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useParams } from 'react-router-dom';
 import Button from 'src/components/common/Button/Button';
 import Input from 'src/components/common/Input/Input';
 import TextArea from 'src/components/common/Input/TextArea';
@@ -18,6 +19,7 @@ export const FormHeader: FC<HeaderFormProps> = ({
 	errors,
 	inputChange,
 }: HeaderFormProps) => {
+	const { courseId } = useParams();
 	return (
 		<div>
 			<div className='flex flex-row justify-between items-center my-5'>
@@ -30,7 +32,10 @@ export const FormHeader: FC<HeaderFormProps> = ({
 					errors={errors}
 					tabIndex={1}
 				/>
-				<Button buttonText='Create course' type='submit' />
+				<Button
+					buttonText={courseId ? 'Update Course' : 'Create course'}
+					type='submit'
+				/>
 			</div>
 
 			<div>

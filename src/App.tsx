@@ -6,12 +6,12 @@ import Container from './components/common/Container/Container';
 import CourseForm from './components/CreateCourse/CourseForm';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { CourseInfo } from './components/CourseInfo/CourseInfo';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { useAppDispatch } from 'src/store/hooks';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 import { fetchAllCourses } from './store/courses/thunk';
 import { fetchAllAuthors } from './store/authors/thunk';
 import { getCurrentUserThunk } from './store/user/thunk';
-import { getUserSelector } from './store/selectors';
+
 function App() {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -25,8 +25,9 @@ function App() {
 				console.error('Error fetching current user:', error);
 			}
 		};
-
-		fetchUser();
+		if (token) {
+			fetchUser();
+		}
 	}, [token]);
 
 	useEffect(() => {
@@ -66,6 +67,14 @@ function App() {
 				/>
 				<Route
 					path='/courses/add'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path='/courses/update/:courseId'
 					element={
 						<PrivateRoute>
 							<CourseForm />

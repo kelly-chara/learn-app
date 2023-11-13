@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
 	formatCreationDate,
 	getCourseDuration,
-	getAuthorsById,
+	getAuthorsNamesById,
 	getCourseById,
 } from '../helpers';
 import { useAppSelector } from 'src/store/hooks';
@@ -17,7 +17,7 @@ export const CourseInfo: FC = () => {
 	const course = getCourseById(courseId, coursesState);
 
 	const formatedAuthors = course.authors
-		? getAuthorsById(course.authors, authorsState)
+		? getAuthorsNamesById(course.authors, authorsState)
 		: 'None';
 
 	const navigate = useNavigate();

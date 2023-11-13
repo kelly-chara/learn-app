@@ -1,7 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CourseType } from './types';
 const initCoursesState = [] as CourseType[];
-import { fetchAllCourses, addNewCourseThunk, deleteCourseThunk } from './thunk';
+import {
+	fetchAllCourses,
+	addNewCourseThunk,
+	deleteCourseThunk,
+	updateCourseThunk,
+} from './thunk';
 
 const coursesSlice = createSlice({
 	name: 'courses',
@@ -11,6 +16,9 @@ const coursesSlice = createSlice({
 			return action.payload;
 		},
 		addNewCourse: (state, action: PayloadAction<CourseType>) => {
+			return [...state, action.payload];
+		},
+		updateCourse: (state, action: PayloadAction<CourseType>) => {
 			return [...state, action.payload];
 		},
 		deleteCourse: (state, action: PayloadAction<string>) => {
@@ -27,6 +35,12 @@ const coursesSlice = createSlice({
 			)
 			.addCase(
 				addNewCourseThunk.fulfilled,
+				(state, action: PayloadAction<CourseType>) => {
+					return [...state, action.payload];
+				}
+			)
+			.addCase(
+				updateCourseThunk.fulfilled,
 				(state, action: PayloadAction<CourseType>) => {
 					return [...state, action.payload];
 				}

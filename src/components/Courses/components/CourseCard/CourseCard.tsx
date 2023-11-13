@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'src/components/common/Button/Button';
 import {
-	getAuthorsById,
+	getAuthorsNamesById,
 	getCourseDuration,
 	formatCreationDate,
 } from 'src/components/helpers';
 import { Course } from 'src/types/common/types';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { getAuthorsSelector } from 'src/store/selectors';
+import { getAuthorsSelector, getUserSelector } from 'src/store/selectors';
 import { deleteCourseThunk } from 'src/store/courses/thunk';
 
 export interface CourseCardProps {
@@ -19,15 +19,21 @@ export const CourseCard: FC<CourseCardProps> = ({
 	course: { authors, title, description, duration, creationDate, id },
 }) => {
 	const allAuthors = useAppSelector(getAuthorsSelector);
+	const { role } = useAppSelector(getUserSelector);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const formattedAuthors =
-		authors && allAuthors ? getAuthorsById(authors, allAuthors).join(', ') : [];
+		authors && allAuthors
+			? getAuthorsNamesById(authors, allAuthors).join(', ')
+			: [];
 
 	const goToCourseInfo = () => {
 		navigate(id);
 	};
 
+	const updateCourseInfo = () => {
+		navigate(`/courses/update/${id}`);
+	};
 	const handleCourseDeletion = async () => {
 		try {
 			await dispatch(deleteCourseThunk(id));
@@ -56,8 +62,12 @@ export const CourseCard: FC<CourseCardProps> = ({
 				</div>
 
 				<div className='flex flex-row gap-2'>
-					<Button buttonText='🖉' />
-					<Button buttonText='🗑️' handleClick={handleCourseDeletion} />
+					{role === 'admin' && (
+						<>
+							<Button buttonText='🖉' handleClick={updateCourseInfo} />
+							<Button buttonText='🗑️' handleClick={handleCourseDeletion} />
+						</>
+					)}
 
 					<div>
 						<Button

@@ -4,12 +4,18 @@ import {
 	AddNewCourse,
 	SaveCourses,
 	DeleteCourse,
+	UpdateCourse,
 } from './types';
 
 // action creators
 
 export const addNewCourseAction = (courseData: CourseType): AddNewCourse => ({
 	type: CoursesActionTypes.ADD_COURSE,
+	payload: courseData,
+});
+
+export const updateCourseAction = (courseData: CourseType): UpdateCourse => ({
+	type: CoursesActionTypes.UPDATE_COURSE,
 	payload: courseData,
 });
 
@@ -23,4 +29,8 @@ export const deleteCourseAction = (courseId: string): DeleteCourse => ({
 	payload: courseId,
 });
 
-export type CoursesAction = SaveCourses | AddNewCourse | DeleteCourse;
+export type CoursesAction =
+	| SaveCourses
+	| AddNewCourse
+	| DeleteCourse
+	| UpdateCourse;

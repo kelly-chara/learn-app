@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
-import Button from 'src/components/common/Button/Button';
-import Input from 'src/components/common/Input/Input';
-import TextArea from 'src/components/common/Input/TextArea';
+import { Button, Input, TextArea } from 'src/components/common';
 
 export interface HeaderFormProps {
 	title: string;

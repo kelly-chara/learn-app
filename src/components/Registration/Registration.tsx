@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
-import { useForm } from '../hooks/useForm';
-import Input from '../common/Input/Input';
-import Button from '../common/Button/Button';
 import * as Yup from 'yup';
+import { useForm } from '../hooks/useForm';
+import { Input, Button, FormTemplate } from '../common';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from 'src/services';
-import FormTemplate from '../common/Templates/Form';
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string()
@@ -38,6 +36,7 @@ const Registration: FC = () => {
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const isValid = await validateForm(); // Validate the form
+
 		if (isValid) {
 			const newUser = {
 				name,
@@ -54,6 +53,7 @@ const Registration: FC = () => {
 			}
 		}
 	};
+
 	return (
 		<FormTemplate
 			submitFunction={handleSubmit}

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { CourseCard } from './components/CourseCard/CourseCard';
-import SearchBar from './components/SearchBar/SearchBar';
-import Button from '../common/Button/Button';
+import { CourseCard, SearchBar } from './components';
+import { Button } from '../common';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { getCoursesSelector } from 'src/store/selectors';

@@ -1,21 +1,20 @@
 import React, { FC, useState } from 'react';
 import * as Yup from 'yup';
-import { Authors } from './components/Authors/Authors';
-import { FormHeader, AuthorForm, FormFooter } from './components/Form';
-import { useForm } from '../hooks/useForm';
+import { FormHeader, AuthorForm, FormFooter, Authors } from './components';
 import { useNavigate, useParams } from 'react-router-dom';
+import { addNewCourseThunk, updateCourseThunk } from 'src/store/courses/thunk';
+import { getAuthorsById, getCourseById } from '../helpers';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { AuthorType } from 'src/store/authors/types';
 import { CourseType } from 'src/store/courses/types';
-import { addNewCourseThunk, updateCourseThunk } from 'src/store/courses/thunk';
-import { getAuthorsById, getCourseById } from '../helpers';
 import { getCoursesSelector, getAuthorsSelector } from 'src/store/selectors';
+import { useForm } from '../hooks/useForm';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string()
-		.min(2, 'Too Short!')
-		.max(50, 'Too Long!')
-		.required('Required'),
+		.min(2, 'Title is Too Short!')
+		.max(50, 'Title is Too Long!')
+		.required('Fiel is Required'),
 	description: Yup.string()
 		.min(2, 'The description is too short')
 		.required('Field is required'),

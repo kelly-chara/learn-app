@@ -8,6 +8,7 @@ interface FormTemplateProps {
 	route: string;
 	title: string;
 }
+
 const FormTemplate = ({
 	children,
 	submitFunction,

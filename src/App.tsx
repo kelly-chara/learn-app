@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import Courses from './components/Courses/Courses';
-import Registration from './components/Registration/Registration';
-import Login from './components/Login/Login';
-import Container from './components/common/Container/Container';
-import CourseForm from './components/CreateCourse/CourseForm';
+import {
+	Courses,
+	Login,
+	Registration,
+	CourseInfo,
+	PrivateRoute,
+	CourseForm,
+} from './components';
+import { Container } from './components/common';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { CourseInfo } from './components/CourseInfo/CourseInfo';
 import { useAppDispatch } from 'src/store/hooks';
-import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 import { fetchAllCourses } from './store/courses/thunk';
 import { fetchAllAuthors } from './store/authors/thunk';
 import { getCurrentUserThunk } from './store/user/thunk';

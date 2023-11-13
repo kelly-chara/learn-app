@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from 'src/components/common/Button/Button';
+import { Button } from 'src/components/common';
 import {
 	getAuthorsNamesById,
 	getCourseDuration,

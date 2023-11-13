@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import { useForm } from '../hooks/useForm';
-import Input from '../common/Input/Input';
-import Button from '../common/Button/Button';
 import * as Yup from 'yup';
+import { useForm } from '../hooks/useForm';
+import { Input, Button, FormTemplate } from '../common';
 import { useNavigate } from 'react-router-dom';
-import FormTemplate from '../common/Templates/Form';
 import { useAppDispatch } from 'src/store/hooks';
 import { logUserThunk, getCurrentUserThunk } from 'src/store/user/thunk';
 
@@ -22,12 +20,15 @@ const Login: FC = () => {
 			},
 			validationSchema
 		);
+
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
+
 		const isValid = await validateForm(); // Validate the form
+
 		if (isValid) {
 			const userData = {
 				password,
@@ -44,6 +45,7 @@ const Login: FC = () => {
 			}
 		}
 	};
+
 	return (
 		<FormTemplate
 			submitFunction={handleSubmit}

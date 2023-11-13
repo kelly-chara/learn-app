@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import Input from 'src/components/common/Input/Input';
-import Button from 'src/components/common/Button/Button';
+import { Button, Input } from 'src/components/common';
 import { useForm } from 'src/components/hooks/useForm';
 import { useAppDispatch } from 'src/store/hooks';
 import { addNewAuthorThunk } from 'src/store/authors/thunk';

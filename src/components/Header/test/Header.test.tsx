@@ -28,6 +28,7 @@ const fakeUser: UserType = {
 	token: '1q2w3e36qwesdsadfsdfggh25jfdgj',
 	role: 'admin',
 };
+
 describe('Header', () => {
 	it('should display user name and logo', async () => {
 		(axios.delete as jest.Mock).mockImplementation(() => Promise.resolve(''));

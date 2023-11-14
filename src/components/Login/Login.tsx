@@ -23,7 +23,6 @@ const Login: FC = () => {
 
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 

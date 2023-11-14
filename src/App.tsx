@@ -56,6 +56,7 @@ function App() {
 			navigate('/login');
 		}
 	}, []);
+
 	return (
 		<Routes>
 			<Route path='/' element={<Container />}>

@@ -26,7 +26,7 @@ const CourseForm: FC<{ courseData?: CourseType }> = () => {
 	const allCourses = useAppSelector(getCoursesSelector);
 	const allAuthors = useAppSelector(getAuthorsSelector);
 	const courseData = getCourseById(courseId, allCourses);
-	const courseAuthors = getAuthorsById(courseData.authors, allAuthors);
+	const courseAuthors = getAuthorsById(courseData?.authors, allAuthors);
 
 	const initialFormState = courseId
 		? {

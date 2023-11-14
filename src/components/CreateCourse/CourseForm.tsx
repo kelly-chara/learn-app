@@ -27,6 +27,7 @@ const CourseForm: FC<{ courseData?: CourseType }> = () => {
 	const allAuthors = useAppSelector(getAuthorsSelector);
 	const courseData = getCourseById(courseId, allCourses);
 	const courseAuthors = getAuthorsById(courseData.authors, allAuthors);
+
 	const initialFormState = courseId
 		? {
 				title: courseData.title,
@@ -52,13 +53,13 @@ const CourseForm: FC<{ courseData?: CourseType }> = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	const [chosenAuthors, setchosenAuthors] = useState<AuthorType[]>([]);
+	const [chosenAuthors, setchosenAuthors] = useState<AuthorType[]>(
+		courseId ? courseAuthors : []
+	);
 
 	const choseAuthor = (author: AuthorType) => {
 		// Check if the author is already in the chosenAuthors array
-		if (courseId) {
-			setchosenAuthors(courseAuthors);
-		}
+
 		const isAuthorAlreadyChosen = chosenAuthors.some(
 			(chosenAuthor) => chosenAuthor.id === author.id
 		);

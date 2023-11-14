@@ -15,7 +15,6 @@ export const getCurrentUserThunk = createAsyncThunk<UserType>(
 			const token =
 				localStorage.getItem('token')?.replace(/^"(.*)"$/, '$1') || '';
 			const user = await getCurrentUser(token);
-			console.log(user, 'the useeeeeeeeeeeeeer');
 			dispatch(getCurrentUserUserAction(user));
 			return user;
 		} catch (error) {

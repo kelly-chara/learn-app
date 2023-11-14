@@ -9,7 +9,7 @@ import {
 import { Course } from 'src/types/common/types';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { getAuthorsSelector, getUserSelector } from 'src/store/selectors';
-import { deleteCourseThunk } from 'src/store/courses/thunk';
+import { deleteCourseThunk, fetchAllCourses } from 'src/store/courses/thunk';
 
 export interface CourseCardProps {
 	course: Course;
@@ -37,6 +37,7 @@ export const CourseCard: FC<CourseCardProps> = ({
 	const handleCourseDeletion = async () => {
 		try {
 			await dispatch(deleteCourseThunk(id));
+			await dispatch(fetchAllCourses());
 		} catch (error) {
 			console.log(error);
 		}

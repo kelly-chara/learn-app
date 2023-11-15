@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice, Action } from '@reduxjs/toolkit';
 import { CourseType } from './types';
 const initCoursesState = [] as CourseType[];
 import {
@@ -53,5 +53,5 @@ const coursesSlice = createSlice({
 			);
 	},
 });
-
+export const { saveCourses } = coursesSlice.actions;
 export default coursesSlice.reducer;

@@ -64,7 +64,6 @@ describe('Courses', () => {
 			</MemoryRouter>
 		);
 
-		screen.debug();
 		// Query for the "Add new course" button and click it
 		const addNewCourseButton = screen.getByText('Add New Course');
 		fireEvent.click(addNewCourseButton);

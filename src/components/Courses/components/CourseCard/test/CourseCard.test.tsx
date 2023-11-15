@@ -1,19 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import axios from 'axios';
 import { MemoryRouter } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { CourseType } from 'src/store/courses/types';
-import { RootState } from 'src/store';
 import { CourseCard } from '../CourseCard';
-import { mockedAuthorsList } from 'src/components/constants';
-import { UserType } from 'src/store/user/types';
+import { renderWithProviders } from 'src/components/Courses/test/Courses.test';
 
 jest.mock('axios');
-jest.mock('react-redux', () => ({
-	useSelector: jest.fn(),
-	useDispatch: jest.fn(),
-}));
 
 const mockCourse: CourseType = {
 	id: 'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba',
@@ -31,15 +24,7 @@ describe('CourseCard', () => {
 	it('should display all elements from courseCard', async () => {
 		(axios.delete as jest.Mock).mockImplementation(() => Promise.resolve(''));
 
-		(useSelector as jest.Mock).mockImplementation(
-			(selector: (state: RootState) => any) =>
-				selector({
-					user: {} as UserType,
-					courses: [],
-					authors: mockedAuthorsList,
-				})
-		);
-		render(
+		renderWithProviders(
 			<MemoryRouter>
 				<CourseCard course={mockCourse} />
 			</MemoryRouter>
@@ -61,24 +46,7 @@ describe('CourseCard', () => {
 	it('should not show update and delete buttons when user is not admin', async () => {
 		(axios.delete as jest.Mock).mockImplementation(() => Promise.resolve(''));
 
-		const mockUser: UserType = {
-			id: '12333',
-			name: 'John Doe',
-			isAuth: true,
-			email: 'JohnDoe@email.com',
-			token: '1q2w3e36qwesdsadfsdfggh25jfdgj',
-			role: 'user',
-		};
-		(useSelector as jest.Mock).mockImplementation(
-			(selector: (state: RootState) => any) =>
-				selector({
-					user: mockUser,
-					courses: [],
-					authors: mockedAuthorsList,
-				})
-		);
-
-		render(
+		renderWithProviders(
 			<MemoryRouter>
 				<CourseCard course={mockCourse} />
 			</MemoryRouter>
@@ -91,24 +59,7 @@ describe('CourseCard', () => {
 	it('should show update and delete buttons when user is not admin', async () => {
 		(axios.delete as jest.Mock).mockImplementation(() => Promise.resolve(''));
 
-		const mockUser: UserType = {
-			id: '12333',
-			name: 'John Doe',
-			isAuth: true,
-			email: 'JohnDoe@email.com',
-			token: '1q2w3e36qwesdsadfsdfggh25jfdgj',
-			role: 'admin',
-		};
-		(useSelector as jest.Mock).mockImplementation(
-			(selector: (state: RootState) => any) =>
-				selector({
-					user: mockUser,
-					courses: [],
-					authors: mockedAuthorsList,
-				})
-		);
-
-		render(
+		renderWithProviders(
 			<MemoryRouter>
 				<CourseCard course={mockCourse} />
 			</MemoryRouter>

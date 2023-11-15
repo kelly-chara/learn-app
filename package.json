@@ -52,13 +52,14 @@
     ]
   },
   "jest": {
-    
-      "moduleNameMapper": {"^axios$": "axios/dist/node/axios.cjs" }
-    
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.23.3",
     "@jest/globals": "^29.7.0",
+    "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.5.8",

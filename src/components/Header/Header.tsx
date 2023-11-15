@@ -34,7 +34,10 @@ const Header: FC<HeaderProps> = () => {
 	const shouldRenderHeader = !excludeRoutes.includes(pathname);
 
 	return shouldRenderHeader ? (
-		<header className='w-full justify-between centered-row px-12 py-4'>
+		<header
+			data-testid='header'
+			className='w-full justify-between centered-row px-12 py-4'
+		>
 			<Link to={'/courses'}>
 				<Logo />
 			</Link>

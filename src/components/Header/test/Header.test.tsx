@@ -1,24 +1,20 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { PropsWithChildren } from 'react';
+import { render, screen, RenderOptions } from '@testing-library/react';
 import Header from '../Header';
 import axios from 'axios';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { UserType } from 'src/store/user/types';
-import { RootState } from 'src/store';
-import { CourseType } from 'src/store/courses/types';
-import { AuthorType } from 'src/store/authors/types';
+import { RootState, AppStore, setupStore } from 'src/store';
 
-jest.mock('react-redux', () => ({
-	useSelector: jest.fn(),
-	useDispatch: jest.fn(),
-}));
+import type { PreloadedState } from '@reduxjs/toolkit';
 
 jest.mock('axios');
-jest.mock('react-redux', () => ({
-	useSelector: jest.fn(),
-	useDispatch: jest.fn(),
-}));
+
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+	preloadedState?: PreloadedState<RootState>;
+	store?: AppStore;
+}
 
 const fakeUser: UserType = {
 	id: '12333',
@@ -29,24 +25,28 @@ const fakeUser: UserType = {
 	role: 'admin',
 };
 
+export function renderWithProviders(
+	ui: React.ReactElement,
+	{
+		preloadedState = {},
+		// Automatically create a store instance if no store was passed in
+		store = setupStore(preloadedState),
+		...renderOptions
+	}: ExtendedRenderOptions = {}
+) {
+	function Wrapper({ children }: PropsWithChildren): JSX.Element {
+		return <Provider store={store}>{children}</Provider>;
+	}
+	return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+}
+
 describe('Header', () => {
-	it('should display user name and logo', async () => {
+	it('should display user name and logo on courses route', async () => {
 		(axios.delete as jest.Mock).mockImplementation(() => Promise.resolve(''));
-
-		(useDispatch as jest.Mock).mockReturnValue(jest.fn());
-		(useSelector as jest.Mock).mockImplementation(
-			(selector: (state: RootState) => RootState) =>
-				selector({
-					user: fakeUser,
-					authors: [] as AuthorType[],
-					courses: [] as CourseType[],
-				})
-		);
-
-		render(
-			<Router>
-				<Header userName='Jhon Doe' />
-			</Router>
+		renderWithProviders(
+			<MemoryRouter initialEntries={['/courses']}>
+				<Header userName={fakeUser.name} />
+			</MemoryRouter>
 		);
 
 		const userName = screen.findByText('Jhon Doe');
@@ -54,5 +54,35 @@ describe('Header', () => {
 
 		expect(userName).toBeTruthy();
 		expect(logo).toBeTruthy();
+	});
+
+	it('should not display component on login route', async () => {
+		(axios.delete as jest.Mock).mockImplementation(() => Promise.resolve(''));
+		renderWithProviders(
+			<MemoryRouter initialEntries={['/login']}>
+				<Header userName={fakeUser.name} />
+			</MemoryRouter>
+		);
+
+		const userName = screen.findByText('Jhon Doe');
+		const logo = screen.findAllByAltText('learn logo');
+
+		expect(screen).not.toContain(userName);
+		expect(screen).not.toContain(logo);
+	});
+
+	it('should not display component on registration route', async () => {
+		(axios.delete as jest.Mock).mockImplementation(() => Promise.resolve(''));
+		renderWithProviders(
+			<MemoryRouter initialEntries={['/registration']}>
+				<Header userName={fakeUser.name} />
+			</MemoryRouter>
+		);
+
+		const userName = screen.findByText('Jhon Doe');
+		const logo = screen.findAllByAltText('learn logo');
+
+		expect(screen).not.toContain(userName);
+		expect(screen).not.toContain(logo);
 	});
 });

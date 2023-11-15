@@ -43,7 +43,10 @@ export const CourseCard: FC<CourseCardProps> = ({
 		}
 	};
 	return (
-		<div className='sm:centered-row justify-between items-center basis-full gap-8 border'>
+		<div
+			data-testid='course-card'
+			className='sm:centered-row justify-between items-center basis-full gap-8 border'
+		>
 			<div className='flex flex-col gap-8 basis-full px-2 py-8 content-between'>
 				<h3 className='sub-header  block'>{title}</h3>
 

@@ -113,7 +113,7 @@ const CourseForm: FC<{ courseData?: CourseType }> = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form data-testid='course-form' onSubmit={handleSubmit}>
 			<FormHeader
 				title={title}
 				description={description}

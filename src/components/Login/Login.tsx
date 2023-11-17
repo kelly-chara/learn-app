@@ -1,17 +1,16 @@
-import React, { FC, useContext } from 'react';
-import { useForm } from '../hooks/useForm';
-import Input from '../common/Input/Input';
-import Button from '../common/Button/Button';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
+import { useForm } from '../hooks/useForm';
+import { Input, Button, FormTemplate } from '../common';
 import { useNavigate } from 'react-router-dom';
-import { logUser } from 'src/ApiRequests/userCreation';
-import FormTemplate from '../common/Templates/Form';
-import { CoursesContext } from 'src/context/CourseContext';
+import { useAppDispatch } from 'src/store/hooks';
+import { logUserThunk, getCurrentUserThunk } from 'src/store/user/thunk';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string().email().required(),
 	password: Yup.string().required(),
 });
+
 const Login: FC = () => {
 	const { email, password, errors, inputChange, validateForm, resetForm } =
 		useForm(
@@ -21,28 +20,31 @@ const Login: FC = () => {
 			},
 			validationSchema
 		);
-	const { setLoginToken, setUser } = useContext(CoursesContext);
-	const navigate = useNavigate();
 
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
+
 		const isValid = await validateForm(); // Validate the form
+
 		if (isValid) {
 			const userData = {
 				password,
 				email,
 			};
+
 			try {
-				const { result, user } = await logUser(userData);
+				await dispatch(logUserThunk(userData));
+				await dispatch(getCurrentUserThunk());
 				resetForm();
-				setLoginToken(result);
-				setUser(user);
 				navigate('/courses', { replace: true });
 			} catch (error) {
 				console.error('Error occurred while logging in:', error);
 			}
 		}
 	};
+
 	return (
 		<FormTemplate
 			submitFunction={handleSubmit}

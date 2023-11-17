@@ -1,22 +1,28 @@
 import React, { FC } from 'react';
-import Button from '../common/Button/Button';
+import { Button } from '../common';
 import { useParams, useNavigate } from 'react-router-dom';
-
 import {
 	formatCreationDate,
 	getCourseDuration,
-	getAuthorsById,
+	getAuthorsNamesById,
 	getCourseById,
 } from '../helpers';
+import { useAppSelector } from 'src/store/hooks';
+import { getAuthorsSelector, getCoursesSelector } from 'src/store/selectors';
 
-export const CourseInfo: FC = () => {
+const CourseInfo: FC = () => {
+	const authorsState = useAppSelector(getAuthorsSelector);
+	const coursesState = useAppSelector(getCoursesSelector);
+
 	const { courseId } = useParams();
-	const course = getCourseById(courseId);
+	const course = getCourseById(courseId, coursesState);
+
 	const formatedAuthors = course.authors
-		? getAuthorsById(course.authors)
+		? getAuthorsNamesById(course.authors, authorsState)
 		: 'None';
 
 	const navigate = useNavigate();
+
 	return (
 		<>
 			<div className='flex flex-col justify-between h-full mt-16 pb-20 items-center basis-full gap-8 border'>
@@ -52,3 +58,4 @@ export const CourseInfo: FC = () => {
 		</>
 	);
 };
+export default CourseInfo;

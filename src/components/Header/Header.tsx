@@ -1,8 +1,11 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import Button from '../common/Button/Button';
 import Logo from './Components/Logo/Logo';
-import { CoursesContext } from 'src/context/CourseContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { logoutUser } from 'src/services';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { logoutUserAction } from 'src/store/user/actions';
+import { getUserSelector } from 'src/store/selectors';
 
 export interface HeaderProps {
 	userName: string;
@@ -10,12 +13,16 @@ export interface HeaderProps {
 
 const Header: FC<HeaderProps> = () => {
 	const navigate = useNavigate();
-	const { user, token, setLoginToken, setUser } = useContext(CoursesContext);
-
-	const logoutHandler = () => {
-		setLoginToken(null);
-		setUser(null);
-		navigate('/login');
+	const dispatch = useAppDispatch();
+	const { token, name } = useAppSelector(getUserSelector);
+	const logoutHandler = async () => {
+		try {
+			await logoutUser(token);
+			dispatch(logoutUserAction());
+			navigate('/login');
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	return (
 		<header className='w-full justify-between centered-row px-12 py-4'>
@@ -25,7 +32,7 @@ const Header: FC<HeaderProps> = () => {
 
 			{token && (
 				<div className='centered-row gap-4 text-normal'>
-					<p>{user?.name}</p>
+					<p>{name}</p>
 					<Button buttonText='Logout' handleClick={logoutHandler} />
 				</div>
 			)}

@@ -1,32 +1,22 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import AuthorItem from '../AuthorItem/AuthorItem';
-import { CoursesContext } from 'src/context/CourseContext';
-import { Author } from 'src/types/common/types';
+import { useAppSelector } from 'src/store/hooks';
+import { AuthorType } from 'src/store/authors/types';
+import { getAuthorsSelector } from 'src/store/selectors';
 
-export const Authors: FC = () => {
-	const { authors, chosenAuthors, setChosenAuthors } =
-		useContext(CoursesContext);
+interface AuthorProps {
+	deleteAuthor: (author: AuthorType) => void;
+	choseAuthor: (author: AuthorType) => void;
+	chosenAuthors: AuthorType[];
+}
 
-	const choseAuthor = (author: Author) => {
-		// Check if the author is already in the chosenAuthors array
-		const isAuthorAlreadyChosen = chosenAuthors.some(
-			(chosenAuthor) => chosenAuthor.id === author.id
-		);
+export const Authors: FC<AuthorProps> = ({
+	deleteAuthor,
+	choseAuthor,
+	chosenAuthors,
+}) => {
+	const authors = useAppSelector(getAuthorsSelector);
 
-		if (!isAuthorAlreadyChosen) {
-			// If the author is not already chosen, add it to the chosenAuthors array
-			const updatedChosenAuthors = [...chosenAuthors, author];
-			setChosenAuthors(updatedChosenAuthors);
-		}
-	};
-
-	const deleteAuthor = (author: Author) => {
-		// Filter out the selected author from chosenAuthors array
-		const updatedChosenAuthors = chosenAuthors.filter(
-			(chosenAuthor) => chosenAuthor.id !== author.id
-		);
-		setChosenAuthors(updatedChosenAuthors);
-	};
 	return (
 		<div className='flex flex-col sm:justify-center basis-full sm:basis-6/12 text-center sm:p-6'>
 			<div>

@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { CourseCard } from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../common/Button/Button';
-import { CoursesContext } from 'src/context/CourseContext';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from 'src/store/hooks';
+import { getCoursesSelector } from 'src/store/selectors';
 
 const Courses = (): JSX.Element => {
-	const { courses } = useContext(CoursesContext);
+	const courses = useAppSelector(getCoursesSelector);
 	const navigate = useNavigate();
 
 	return (

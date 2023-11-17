@@ -1,19 +1,23 @@
 import React, { FC } from 'react';
 import Button from '../common/Button/Button';
 import { useParams, useNavigate } from 'react-router-dom';
-
 import {
 	formatCreationDate,
 	getCourseDuration,
 	getAuthorsById,
 	getCourseById,
 } from '../helpers';
-
+import { useAppSelector } from 'src/store/hooks';
+import { getAuthorsSelector, getCoursesSelector } from 'src/store/selectors';
 export const CourseInfo: FC = () => {
+	const authorsState = useAppSelector(getAuthorsSelector);
+	const coursesState = useAppSelector(getCoursesSelector);
+
 	const { courseId } = useParams();
-	const course = getCourseById(courseId);
+	const course = getCourseById(courseId, coursesState);
+
 	const formatedAuthors = course.authors
-		? getAuthorsById(course.authors)
+		? getAuthorsById(course.authors, authorsState)
 		: 'None';
 
 	const navigate = useNavigate();

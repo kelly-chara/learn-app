@@ -4,8 +4,9 @@ import Input from '../common/Input/Input';
 import Button from '../common/Button/Button';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { createUser } from 'src/ApiRequests/userCreation';
+import { createUser } from 'src/services';
 import FormTemplate from '../common/Templates/Form';
+
 const validationSchema = Yup.object().shape({
 	name: Yup.string()
 		.min(2, 'Too Short!')
@@ -14,6 +15,7 @@ const validationSchema = Yup.object().shape({
 	email: Yup.string().email().required(),
 	password: Yup.string().required(),
 });
+
 const Registration: FC = () => {
 	const {
 		name,

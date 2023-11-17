@@ -7,6 +7,9 @@ import {
 	formatCreationDate,
 } from 'src/components/helpers';
 import { Course } from 'src/types/common/types';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
+import { deleteCourseAction } from 'src/store/courses/actions';
+import { getAuthorsSelector } from 'src/store/selectors';
 
 export interface CourseCardProps {
 	course: Course;
@@ -15,10 +18,16 @@ export interface CourseCardProps {
 export const CourseCard: FC<CourseCardProps> = ({
 	course: { authors, title, description, duration, creationDate, id },
 }) => {
-	const formatedAuthors = authors ? getAuthorsById(authors) : 'None';
+	const allAuthors = useAppSelector(getAuthorsSelector);
+	const dispatch = useAppDispatch();
+	const formatedAuthors = getAuthorsById(authors, allAuthors);
 	const navigate = useNavigate();
 	const goToCourseInfo = () => {
 		navigate(id);
+	};
+
+	const handleCourseDeletion = async () => {
+		dispatch(deleteCourseAction(id));
 	};
 	return (
 		<div className='sm:centered-row justify-between items-center basis-full gap-8 border'>
@@ -27,10 +36,10 @@ export const CourseCard: FC<CourseCardProps> = ({
 
 				<p className='text-justify'>{description}</p>
 			</div>
-			<div className='flex flex-col text-center sm:text-justify justify-between basis-full sm:basis-4/12 p-2 gap-4'>
+			<div className='flex flex-col text-center sm:text-justify justify-between  p-2 gap-4'>
 				<div className='flex flex-col gap-2 justify-center p-2'>
 					<p className='font-bold'>
-						Authors: <span>{formatedAuthors}</span>
+						Authors: <span>{formatedAuthors.join(', ')}</span>
 					</p>
 					<p className='font-bold'>
 						Duration: <span>{getCourseDuration(duration)} hours</span>
@@ -40,8 +49,17 @@ export const CourseCard: FC<CourseCardProps> = ({
 					</p>
 				</div>
 
-				<div className='flex justify-center items-center'>
-					<Button buttonText='Show Course' handleClick={goToCourseInfo} />
+				<div className='flex flex-row gap-2'>
+					<Button buttonText='🖉' />
+					<Button buttonText='🗑️' handleClick={handleCourseDeletion} />
+
+					<div>
+						<Button
+							buttonText='Show Course'
+							className='flex-nowrap'
+							handleClick={goToCourseInfo}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

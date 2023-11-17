@@ -1,4 +1,4 @@
-import { Course } from 'src/types/common/types';
+import { CourseType } from 'src/store/courses/types';
 
 export const getCourseDuration = (timeInMinutes: number): string => {
 	const minutes = timeInMinutes % 60;
@@ -8,11 +8,7 @@ export const getCourseDuration = (timeInMinutes: number): string => {
 const convertDigits = (num: number): string => {
 	return num.toString().padStart(2, '0');
 };
-export const getCourseById = (id: string) => {
-	const existingCourses: Course[] = JSON.parse(
-		localStorage.getItem('courses') || '[]'
-	);
-
+export const getCourseById = (id: string, existingCourses: CourseType[]) => {
 	const course = existingCourses?.find((course) => course.id === id);
 
 	return course;

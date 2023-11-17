@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-const useErrorVisibility = (errors, nameInput) => {
+interface params {
+	errors: Record<string, string>;
+	nameInput: string;
+}
+
+const useErrorVisibility = ({ errors, nameInput }: params) => {
 	const hasError = errors && errors[nameInput];
 
 	const [isErrorVisible, setIsErrorVisible] = useState(true);

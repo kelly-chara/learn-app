@@ -5,7 +5,7 @@ import { CoursesAction } from './actions';
 export const coursesReducer = (
 	state = initCoursesState,
 	action: CoursesAction
-) => {
+): CourseType[] => {
 	switch (action.type) {
 		case CoursesActionTypes.SAVE_COURSES:
 			return action.payload;

@@ -1,4 +1,4 @@
-import { UserActionTypes, UserType } from './types';
+import { UserActionTypes, UserApiResponse, UserType } from './types';
 const initCoursesState: UserType = {
 	isAuth: false,
 	id: '',
@@ -8,7 +8,10 @@ const initCoursesState: UserType = {
 };
 import { UserActions } from './actions';
 
-export const userReducer = (state = initCoursesState, action: UserActions) => {
+export const userReducer = (
+	state = initCoursesState,
+	action: UserActions
+): UserType | UserApiResponse => {
 	switch (action.type) {
 		case UserActionTypes.AUTH_USER:
 			return action.payload;

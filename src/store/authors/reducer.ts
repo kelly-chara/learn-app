@@ -17,5 +17,3 @@ export const authorsReducer = (
 			return state;
 	}
 };
-
-// definir selectores

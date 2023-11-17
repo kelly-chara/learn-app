@@ -2,8 +2,9 @@ import { ChangeEvent, useState } from 'react';
 import * as yup from 'yup';
 
 export const useForm = <T>(initValue: T, validationSchema: yup.Schema<T>) => {
+	type Errors = Record<string, string>;
 	const [formState, setFormState] = useState(initValue);
-	const [errors, setErrors] = useState({}); // State to hold validation errors
+	const [errors, setErrors] = useState<Errors>({}); // State to hold validation errors
 
 	const validateForm = async () => {
 		try {
@@ -11,8 +12,8 @@ export const useForm = <T>(initValue: T, validationSchema: yup.Schema<T>) => {
 			setErrors({});
 			return true; // Form is valid
 		} catch (error) {
-			const validationErrors = {};
-			error.inner.forEach((e) => {
+			const validationErrors = {} as Errors;
+			error.inner.forEach((e: Errors) => {
 				validationErrors[e.path] = e.message;
 			});
 			setErrors(validationErrors);

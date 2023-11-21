@@ -23,9 +23,9 @@ export const CourseCard: FC<CourseCardProps> = ({
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const formattedAuthors =
-		authors && allAuthors
-			? getAuthorsNamesById(authors, allAuthors).join(', ')
-			: [];
+		authors &&
+		allAuthors &&
+		getAuthorsNamesById(authors, allAuthors).join(', ');
 
 	const goToCourseInfo = () => {
 		navigate(id);

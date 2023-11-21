@@ -16,7 +16,7 @@ const TextArea: FC<TextareaProps> = ({
 	...textAreaProps
 }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
-		useErrorVisibility(errors, name);
+		useErrorVisibility({ errors, nameInput: name });
 
 	return (
 		<div className='mb-4'>

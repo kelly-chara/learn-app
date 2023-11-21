@@ -1,24 +1,23 @@
 import { getAllAuthors, addNewAuthor } from 'src/services';
-import { getAllAuthorsAction, addNewAuthorAction } from './actions';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthorType } from './types';
 
 export const fetchAllAuthors = createAsyncThunk<AuthorType[]>(
 	'authors/fetchAllAuthors',
-	async (_, thunkAPI) => {
+	async (state, thunkAPI) => {
 		try {
 			const authors = await getAllAuthors();
 
-			thunkAPI.dispatch(getAllAuthorsAction(authors));
 			return authors;
 		} catch (error) {
-			console.error('Error fetching authors:', error);
-			throw error; // Rethrow the error to mark the thunk as rejected
+			const typedError = error as unknown as Record<string, string>;
+
+			thunkAPI.rejectWithValue(typedError);
 		}
 	}
 );
 
-export const addNewAuthorThunk = createAsyncThunk(
+export const addNewAuthorThunk = createAsyncThunk<AuthorType, string>(
 	'authors/addNewAuthor',
 	async (authorName: string, thunkAPI) => {
 		try {
@@ -26,12 +25,12 @@ export const addNewAuthorThunk = createAsyncThunk(
 				localStorage.getItem('token')?.replace(/^"(.*)"$/, '$1') || '';
 
 			const author = await addNewAuthor(token, authorName);
-			thunkAPI.dispatch(addNewAuthorAction(author));
+
 			return author;
 		} catch (error) {
-			console.error('Error saving new author:', error);
+			const typedError = error as unknown as Record<string, string>;
 
-			throw error; // Rethrow the error to mark the thunk as rejected
+			thunkAPI.rejectWithValue(typedError);
 		}
 	}
 );

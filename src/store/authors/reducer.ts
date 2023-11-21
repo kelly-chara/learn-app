@@ -1,34 +1,44 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthorType } from './types';
+import { createSlice } from '@reduxjs/toolkit';
+import { authorsState } from './types';
 import { fetchAllAuthors, addNewAuthorThunk } from './thunk';
 
-const initAuthorsState = [] as AuthorType[];
+const initAuthorsState: authorsState = {
+	authors: [],
+	errors: null,
+};
 
 const authorsSlice = createSlice({
 	name: 'authors',
 	initialState: initAuthorsState,
-	reducers: {
-		getAllAuthors: (_, action: PayloadAction<AuthorType[]>) => {
-			return action.payload;
-		},
-		addNewAuthor: (state, action: PayloadAction<AuthorType>) => {
-			return [...state, action.payload];
-		},
-	},
+	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(
-				fetchAllAuthors.fulfilled,
-				(_, action: PayloadAction<AuthorType[]>) => {
-					return action.payload;
-				}
-			)
-			.addCase(
-				addNewAuthorThunk.fulfilled,
-				(state, action: PayloadAction<AuthorType>) => {
-					return [...state, action.payload];
-				}
-			);
+			.addCase(fetchAllAuthors.fulfilled, (_, action) => {
+				return {
+					authors: action.payload,
+					errors: {} as Record<string, string>,
+				};
+			})
+
+			.addCase(fetchAllAuthors.rejected, (_, action) => {
+				return {
+					authors: [],
+					errors: action.payload as Record<string, string>,
+				};
+			})
+
+			.addCase(addNewAuthorThunk.fulfilled, (state, action) => {
+				return {
+					authors: [...state.authors, action.payload],
+					errors: {} as Record<string, string>,
+				};
+			})
+			.addCase(addNewAuthorThunk.rejected, (state, action) => {
+				return {
+					authors: [],
+					errors: action.payload as Record<string, string>,
+				};
+			});
 	},
 });
 

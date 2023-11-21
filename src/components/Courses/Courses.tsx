@@ -14,7 +14,7 @@ const Courses = (): JSX.Element => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				await dispatch(fetchAllCourses());
+				await dispatch(fetchAllCourses()).unwrap();
 			} catch (error) {
 				console.error('Error fetching courses:', error);
 			}

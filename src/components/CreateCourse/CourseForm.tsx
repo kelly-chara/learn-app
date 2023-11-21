@@ -95,11 +95,11 @@ const CourseForm: FC<{ courseData?: CourseType }> = () => {
 
 			try {
 				if (courseId) {
-					dispatch(updateCourseThunk({ newCourse, courseId }));
+					dispatch(updateCourseThunk({ newCourse, courseId })).unwrap();
 				} else {
 					// If courseId is not present, it's a new course
 					// Dispatch the addNewCourseThunk action
-					dispatch(addNewCourseThunk(newCourse));
+					dispatch(addNewCourseThunk(newCourse)).unwrap();
 				}
 
 				resetForm();

@@ -7,6 +7,11 @@ export type UserType = {
 	role: string;
 };
 
+export type UserState = {
+	user: UserType;
+	error: any;
+};
+
 export type UserApiResponse = Omit<UserType, 'id' | 'role'>;
 
 export const enum UserActionTypes {

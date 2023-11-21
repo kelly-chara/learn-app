@@ -18,3 +18,8 @@ export interface GetAllAuthorsAction {
 	type: AuthorActionTypes.GET_ALL_AUTHORS;
 	payload: AuthorType[];
 }
+
+export interface authorsState {
+	authors: AuthorType[];
+	errors: Record<string, string>;
+}

@@ -5,9 +5,9 @@ import userReducer from './user/reducer';
 import authorsReducer from './authors/reducer';
 
 export const rootReducer = combineReducers({
-	courses: coursesReducer,
+	coursesState: coursesReducer,
 	user: userReducer,
-	authors: authorsReducer,
+	authorsState: authorsReducer,
 });
 
 export const store = configureStore({ reducer: rootReducer });

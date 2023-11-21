@@ -40,3 +40,8 @@ export interface SaveCourses {
 	type: CoursesActionTypes.SAVE_COURSES;
 	payload: CourseType[];
 }
+
+export interface coursesState {
+	courses: CourseType[];
+	errors: any;
+}

@@ -6,8 +6,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserType } from 'src/store/user/types';
 import { RootState } from 'src/store';
-import { CourseType } from 'src/store/courses/types';
-import { AuthorType } from 'src/store/authors/types';
+import { CourseType, coursesState } from 'src/store/courses/types';
+import { AuthorType, authorsState } from 'src/store/authors/types';
 
 jest.mock('react-redux', () => ({
 	useSelector: jest.fn(),
@@ -37,8 +37,8 @@ describe('Header', () => {
 			(selector: (state: RootState) => RootState) =>
 				selector({
 					user: fakeUser,
-					authors: [] as AuthorType[],
-					courses: [] as CourseType[],
+					authorsState: {} as authorsState,
+					coursesState: {} as coursesState,
 				})
 		);
 

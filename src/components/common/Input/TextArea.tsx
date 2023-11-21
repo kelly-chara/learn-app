@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import useErrorVisibility from 'src/components/hooks/useErrorVisibility';
 import { InputCommonProps } from 'src/types/common/types';
-// Textarea component props
 
+// Textarea component props
 type TextareaProps = Omit<
 	React.TextareaHTMLAttributes<HTMLTextAreaElement>,
 	'prefix'
@@ -16,7 +16,7 @@ const TextArea: FC<TextareaProps> = ({
 	...textAreaProps
 }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
-		useErrorVisibility(errors, name);
+		useErrorVisibility({ errors, nameInput: name });
 
 	return (
 		<div className='mb-4'>

@@ -10,7 +10,7 @@ export type InputProps = Omit<
 
 const Input: FC<InputProps> = ({ labelName, errors, name, ...otherProps }) => {
 	const { isErrorVisible, hasError, handleBlur, handleFocus } =
-		useErrorVisibility(errors, name);
+		useErrorVisibility({ errors, nameInput: name });
 
 	return (
 		<div className='mb-4'>

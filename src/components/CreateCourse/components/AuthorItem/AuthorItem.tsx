@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import Button from 'src/components/common/Button/Button';
-import { Author } from 'src/types/common/types';
+import { AuthorType } from 'src/store/authors/types';
 
 export interface AuthorItemProps {
-	author: Author;
+	author: AuthorType;
 	isInChosenList: boolean;
-	handleDeletion?: (author: Author) => void;
-	addAuthor?: (author: Author) => void;
+	handleDeletion?: (author: AuthorType) => void;
+	addAuthor?: (author: AuthorType) => void;
 }
 
 const AuthorItem: FC<AuthorItemProps> = ({

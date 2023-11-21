@@ -1,19 +1,53 @@
 import React, { useEffect } from 'react';
-import Courses from './components/Courses/Courses';
-import CreateCourse from './components/CreateCourse/CreateCourse';
-import Registration from './components/Registration/Registration';
-import Login from './components/Login/Login';
+import {
+	Courses,
+	Login,
+	Registration,
+	CourseInfo,
+	PrivateRoute,
+	CourseForm,
+} from './components';
+import { Container } from './components/common';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Container from './components/common/Container/Container';
+import { useAppDispatch } from 'src/store/hooks';
+import { fetchAllCourses } from './store/courses/thunk';
+import { fetchAllAuthors } from './store/authors/thunk';
+import { getCurrentUserThunk } from './store/user/thunk';
 
-import { CourseInfo } from './components/CourseInfo/CourseInfo';
-CourseInfo;
 function App() {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const token = localStorage.getItem('token')?.replace(/^"(.*)"$/, '$1') || '';
 
 	useEffect(() => {
-		// Check if there is a token in localStorage
-		const token = localStorage.getItem('token');
+		const fetchUser = async () => {
+			try {
+				await dispatch(getCurrentUserThunk()).unwrap();
+			} catch (error) {
+				console.error('Error fetching current user:', error);
+			}
+		};
+		if (token) {
+			fetchUser();
+		}
+	}, [token]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				await dispatch(fetchAllCourses());
+				await dispatch(fetchAllAuthors());
+			} catch (error) {
+				console.error('Error fetching courses:', error);
+			}
+		};
+
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		const token =
+			localStorage.getItem('token')?.replace(/^"(.*)"$/, '$1') || '';
 
 		// If token is present, redirect to '/courses'
 		if (token) {
@@ -22,10 +56,34 @@ function App() {
 			navigate('/login');
 		}
 	}, []);
+
 	return (
 		<Routes>
 			<Route path='/' element={<Container />}>
-				<Route path='/courses/add' element={<CreateCourse />} />
+				<Route
+					path='/courses/update/:courseId'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path='/courses/add'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path='/courses/update/:courseId'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
 				<Route path='/registration' element={<Registration />} />

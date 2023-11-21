@@ -1,10 +1,10 @@
-import React, { FC, useContext } from 'react';
-import Input from 'src/components/common/Input/Input';
-import Button from 'src/components/common/Button/Button';
-import * as Yup from 'yup';
-import { v4 as uuidv4 } from 'uuid';
+import React, { FC } from 'react';
+import { Button, Input } from 'src/components/common';
 import { useForm } from 'src/components/hooks/useForm';
-import { CoursesContext } from 'src/context/CourseContext';
+import { useAppDispatch } from 'src/store/hooks';
+import { addNewAuthorThunk } from 'src/store/authors/thunk';
+
+import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
 	authorName: Yup.string()
@@ -14,36 +14,19 @@ const validationSchema = Yup.object().shape({
 });
 
 export const AuthorForm: FC = () => {
-	const { setAuthors } = useContext(CoursesContext);
 	const { authorName, errors, inputChange, resetForm, validateForm } = useForm(
 		{
 			authorName: '',
 		},
 		validationSchema
 	);
+	const dispatch = useAppDispatch();
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const isValid = await validateForm(); // Validate the form
+
 		if (isValid) {
-			const newAuthorId = uuidv4();
-			const newAuthor = {
-				id: newAuthorId,
-				name: authorName,
-			};
-
-			const existingAuthors = JSON.parse(
-				localStorage.getItem('authors') || '[]'
-			);
-
-			// Add the new author
-			const updatedAuthors = [...existingAuthors, newAuthor];
-
-			// Save the updated authors back to localStorage
-			localStorage.setItem('authors', JSON.stringify(updatedAuthors));
-
-			// Update the authors in context
-			setAuthors(updatedAuthors);
-
+			await dispatch(addNewAuthorThunk(authorName));
 			resetForm();
 		} else {
 			console.log(errors);

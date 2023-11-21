@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Input from 'src/components/common/Input/Input';
+import { Input } from 'src/components/common';
 import { getCourseDuration } from 'src/components/helpers';
 
 export interface FooterFormProps {

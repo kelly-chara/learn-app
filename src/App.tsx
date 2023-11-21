@@ -22,7 +22,7 @@ function App() {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				await dispatch(getCurrentUserThunk());
+				await dispatch(getCurrentUserThunk()).unwrap();
 			} catch (error) {
 				console.error('Error fetching current user:', error);
 			}
